@@ -6,12 +6,19 @@ _.identity = function (value) {
 };
 
 // FIRST
-_.first = function (array) {
-    if (!(Array.isArray(array)) && typeof array !== 'string') { 
-      return undefined; 
-    } else {
-      return array[0];
-    }
+_.first = function (array, num) {
+  if (!(Array.isArray(array)) && typeof array !== 'string') { 
+    return undefined; 
+  } 
+  if (num === undefined) { 
+    return array[0]; 
+  } 
+  if (Array.isArray(array)) { 
+    return array.slice(0, num); 
+  }
+  if (typeof array === 'string') { 
+    return array.split('').slice(0, num); 
+  }
 };
 
 
