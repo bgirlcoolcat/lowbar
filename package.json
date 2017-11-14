@@ -1,0 +1,31 @@
+{
+  "name": "lowbar",
+  "version": "1.0.0",
+  "description": "This code re-implements a JavaScript library, by writing code as its author for underscore methods",
+  "main": "lowbar.js",
+  "scripts": {
+    "test": "mocha ./spec/",
+    "lint": "eslint ./",
+    "posttest": "npm run lint",
+    "precommit": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgirlcoolcat/lowbar.git"
+  },
+  "author": "Bev Evans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgirlcoolcat/lowbar/issues"
+  },
+  "homepage": "https://github.com/bgirlcoolcat/lowbar#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.11.0",
+    "husky": "^0.14.3",
+    "sinon": "^4.1.2"
+  },
+  "dependencies": {
+    "mocha": "^4.0.1"
+  }
+}
