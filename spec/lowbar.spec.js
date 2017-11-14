@@ -57,8 +57,15 @@ describe('_', function () {
     });
     it('should not accept an invalid data type', function () {
       expect(_.first(2)).to.be.undefined;
+      expect(_.first(2, 1)).to.be.undefined;
       expect(_.first({a:1, b:2, c:3})).to.be.undefined;
+      expect(_.first({a:1, b:2, c:3}, 2)).to.be.undefined;
       expect(_.first(true)).to.be.undefined;
+      expect(_.first(true, 1)).to.be.undefined;
+    });
+    it('returns the elements of an array or string (as an array) for the number given as a second argument', function () {
+      expect(_.first([5, 4, 3, 2, 1], 2)).to.eql([5, 4]);
+      expect(_.first('Hello', 2)).to.eql(['H', 'e']);
     });
   });
 
