@@ -1,6 +1,6 @@
 const _ = {};
 
-//  IDENTITY
+// IDENTITY
 _.identity = function (value) {
   return value;
 };
