@@ -11,7 +11,7 @@ describe('_', function () {
   });
   
   // IDENTITY
-  describe.only('#_.identity', function () {
+  describe('#_.identity', function () {
     it('is a function', function () {
       expect(_.identity).to.be.a('function');
     });
@@ -37,6 +37,26 @@ describe('_', function () {
     it('returns undefined when passed no arguments', function () {
       expect(_.identity()).to.be.undefined;
     });
+  });
+
+  // FIRST
+  describe.only('#_.first', function () {
+    it('is a function', function () {
+      expect(_.first).to.be.a('function');
+    });
+    it('returns the first element of an array or string', function () {
+      expect(_.first([5, 4, 3, 2, 1])).to.equal(5);
+      expect(_.first('Hello')).to.equal('H');
+    });
+    it('should return undefined for an empty array or string', function () {
+      expect(_.first()).to.be.undefined;
+    });
+    it('should not accept an invalid data type', function () {
+      expect(_.first(2)).to.be.undefined;
+      expect(_.first({a:1, b:2, c:3})).to.be.undefined;
+      expect(_.first(true)).to.be.undefined;
+    });
+
   });
 
 });
