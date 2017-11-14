@@ -10,7 +10,7 @@ describe('_', function () {
     expect(_).to.be.an('object');
   });
   
-  //  IDENTITY
+  // IDENTITY
   describe.only('#_.identity', function () {
     it('is a function', function () {
       expect(_.identity).to.be.a('function');
