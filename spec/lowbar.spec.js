@@ -48,15 +48,18 @@ describe('_', function () {
       expect(_.first([5, 4, 3, 2, 1])).to.equal(5);
       expect(_.first('Hello')).to.equal('H');
     });
-    it('should return undefined for an empty array or string', function () {
+    it('should return undefined when no argument is passed', function () {
       expect(_.first()).to.be.undefined;
+    });
+    it('should return undefined for an empty array or string', function () {
+      expect(_.first([])).to.be.undefined;
+      expect(_.first('')).to.be.undefined;
     });
     it('should not accept an invalid data type', function () {
       expect(_.first(2)).to.be.undefined;
       expect(_.first({a:1, b:2, c:3})).to.be.undefined;
       expect(_.first(true)).to.be.undefined;
     });
-
   });
 
 });
