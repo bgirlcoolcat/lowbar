@@ -37,4 +37,20 @@ _.last = function (array, num) {
   }
 };
 
+// INDEX OF
+_.indexOf = function (array, value) {
+  if (array === undefined || !(Array.isArray(array)) && typeof array !== 'string') {
+    return - 1;
+  }
+  if (typeof array === 'string') {
+    return array.search(value);
+  } 
+  if (Array.isArray(array)) {
+    return array.findIndex(function(elem) {
+      return elem === value;
+    });
+  }
+};
+
 module.exports = _;
+
