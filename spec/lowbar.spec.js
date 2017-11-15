@@ -87,8 +87,15 @@ describe('_', function () {
     });
     it('should not accept an invalid data type', function () {
       expect(_.last(4)).to.be.undefined;
+      expect(_.last(4, 1)).to.be.undefined;
       expect(_.last({x:1, y:2, z:3})).to.be.undefined;
+      expect(_.last({x:1, y:2, z:3}, 3)).to.be.undefined;
       expect(_.last(false)).to.be.undefined;
+      expect(_.last(false), 1).to.be.undefined;
+    });
+    it('returns the last elements of an array/string (as an array) for number given as second argument', function () {
+      expect(_.last([5, 4, 3, 2, 1], 3)).to.eql([3, 2, 1]);
+      expect(_.last('Goodbye', 3)).to.eql(['b', 'y', 'e']);
     });
   });
 
