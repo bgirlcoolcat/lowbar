@@ -40,7 +40,7 @@ describe('_', function () {
   });
 
   // FIRST
-  describe.only('#_.first', function () {
+  describe('#_.first', function () {
     it('is a function', function () {
       expect(_.first).to.be.a('function');
     });
@@ -66,6 +66,29 @@ describe('_', function () {
     it('returns the elements of an array or string (as an array) for the number given as a second argument', function () {
       expect(_.first([5, 4, 3, 2, 1], 2)).to.eql([5, 4]);
       expect(_.first('Hello', 2)).to.eql(['H', 'e']);
+    });
+  });
+
+  // LAST
+  describe.only('#_.last', function () {
+    it('is a function', function () {
+      expect(_.last).to.be.a('function');
+    });
+    it('returns the last element of an array or string', function () {
+      expect(_.last([5, 4, 3, 2, 1])).to.equal(1);
+      expect(_.last('Goodbye')).to.equal('e');
+    });
+    it('should return undefined when no argument is passed', function () {
+      expect(_.last()).to.be.undefined;
+    });
+    it('should return undefined for an empty array or string', function () {
+      expect(_.last([])).to.be.undefined;
+      expect(_.last('')).to.be.undefined;
+    });
+    it('should not accept an invalid data type', function () {
+      expect(_.last(4)).to.be.undefined;
+      expect(_.last({x:1, y:2, z:3})).to.be.undefined;
+      expect(_.last(false)).to.be.undefined;
     });
   });
 
