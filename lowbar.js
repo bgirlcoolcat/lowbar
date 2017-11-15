@@ -21,5 +21,13 @@ _.first = function (array, num) {
   }
 };
 
+// LAST
+_.last = function (array) {
+  if (!(Array.isArray(array)) && typeof array !== 'string') { 
+    return undefined; 
+  } else {
+    return array[array.length - 1];
+    }
+};
 
 module.exports = _;
