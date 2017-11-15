@@ -70,7 +70,7 @@ describe('_', function () {
   });
 
   // LAST
-  describe.only('#_.last', function () {
+  describe('#_.last', function () {
     it('is a function', function () {
       expect(_.last).to.be.a('function');
     });
@@ -96,6 +96,28 @@ describe('_', function () {
     it('returns the last elements of an array/string (as an array) for number given as second argument', function () {
       expect(_.last([5, 4, 3, 2, 1], 3)).to.eql([3, 2, 1]);
       expect(_.last('Goodbye', 3)).to.eql(['b', 'y', 'e']);
+    });
+  });
+
+  // INDEX OF
+  describe.only('#_.indexOf', function () {
+    it('is a function', function () {
+      expect(_.indexOf).to.be.a('function');
+    });
+    it('returns the index at which value is found in the array/string or -1 if value is not present in array', function () {
+      expect(_.indexOf([1, 2, 3], 2)).to.equal(1);
+      expect(_.indexOf([1, 2, 3], 4)).to.equal(-1);
+      expect(_.indexOf('hello', 'o')).to.equal(4);
+      expect(_.indexOf('hello', 'b')).to.equal(-1);
+    });
+    it('should return -1 when no argument is passed', function () {
+      expect(_.indexOf()).to.equal(-1);
+      expect(_.indexOf([1,2,3])).to.equal(-1);
+    });
+    it('should return -1 if given an invalid data type', function () {
+      expect(_.indexOf(4280, 4)).to.equal(-1);
+      expect(_.indexOf({x:1, y:2, z:3}, 3)).to.equal(-1);
+      expect(_.indexOf(true), true).to.equal(-1);
     });
   });
 
