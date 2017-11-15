@@ -22,12 +22,19 @@ _.first = function (array, num) {
 };
 
 // LAST
-_.last = function (array) {
+_.last = function (array, num) {
   if (!(Array.isArray(array)) && typeof array !== 'string') { 
     return undefined; 
-  } else {
+  } 
+  if (num === undefined) {
     return array[array.length - 1];
-    }
+  }
+  if (Array.isArray(array)) { 
+    return array.slice(- num); 
+  }
+  if (typeof array === 'string') {
+    return array.split('').slice(- num);
+  }
 };
 
 module.exports = _;
