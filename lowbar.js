@@ -52,5 +52,30 @@ _.indexOf = function (array, value) {
   }
 };
 
+// FILTER
+_.filter = function (list, predicate) {
+  let filteredList = [];
+
+  if (!(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
+    return [];
+  }
+
+  if (typeof list === 'object') {
+    for (var j = 0 in list) {
+      if (predicate(list[j]) === true) {
+        filteredList.push(list[j]);
+      }
+    } 
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      if (predicate(list[i]) === true) {
+        filteredList.push(list[i]);
+      }
+    }
+  }
+  return filteredList;
+};
+
+
 module.exports = _;
 
