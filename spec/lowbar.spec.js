@@ -100,7 +100,7 @@ describe('_', function () {
   });
 
   // INDEX OF
-  describe.only('#_.indexOf', function () {
+  describe('#_.indexOf', function () {
     it('is a function', function () {
       expect(_.indexOf).to.be.a('function');
     });
@@ -118,6 +118,38 @@ describe('_', function () {
       expect(_.indexOf(4280, 4)).to.equal(-1);
       expect(_.indexOf({x:1, y:2, z:3}, 3)).to.equal(-1);
       expect(_.indexOf(true), true).to.equal(-1);
+    });
+  });
+
+  // FILTER
+  describe.only('#_.filter', function () {
+    it('is a function', function () {
+      expect(_.filter).to.be.a('function');
+    });
+    it('takes each value in the list returning only an array of values passing the truth test', function () {
+      expect(_.filter([1,2,3,4,5,6], function(num) {
+        return num % 2 === 0;
+      })).to.eql([2,4,6]);
+      expect(_.filter([1,3,5], function(num) {
+        return num % 2 === 0;
+      })).to.eql([]);
+      expect(_.filter({a: 1, b: 2, c: 3, d: 4}, function(num) {
+        return num % 2 === 0;
+      })).to.eql([2,4]);
+      expect(_.filter('1,2,3,4', function(num) {
+        return num % 2 === 0;
+      })).to.eql(['2','4']);
+    });
+    it('returns an empty array if no arguments are passed', function () {
+      expect(_.filter()).to.eql([]);
+    });
+    it('returns an empty array if given an invalid data type', function () {
+      expect(_.filter(1234, function(num) {
+        return num % 2 === 0;
+      })).to.eql([]);
+      expect(_.filter(true, function(num) {
+        return num % 2 === 0;
+      })).to.eql([]);
     });
   });
 
