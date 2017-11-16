@@ -76,6 +76,31 @@ _.filter = function (list, predicate) {
   return filteredList;
 };
 
+// REJECT
+_.reject = function (list, predicate) {
+
+  let rejectList = [];
+
+  if (!(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
+    return rejectList;
+  }
+
+  if (typeof list === 'object') {
+    for (var j = 0 in list) {
+      if (predicate(list[j]) === false) {
+        rejectList.push(list[j]);
+      }
+    } 
+  } else {
+      for (var i = 0; i < list.length; i++) {
+        if (predicate(list[i]) === false) {
+          rejectList.push(list[i]);
+        }
+      }
+    }
+  return rejectList;
+};
+
 
 module.exports = _;
 
