@@ -122,7 +122,7 @@ describe('_', function () {
   });
 
   // FILTER
-  describe.only('#_.filter', function () {
+  describe('#_.filter', function () {
     it('is a function', function () {
       expect(_.filter).to.be.a('function');
     });
@@ -148,6 +148,38 @@ describe('_', function () {
         return num % 2 === 0;
       })).to.eql([]);
       expect(_.filter(true, function(num) {
+        return num % 2 === 0;
+      })).to.eql([]);
+    });
+  });
+
+// REJECT
+  describe.only('#_.reject', function () {
+    it('is a function', function () {
+      expect(_.reject).to.be.a('function');
+    });
+    it('returns the list values that don\'t pass the truth (predicate) test', function () {
+      expect(_.reject([1,2,3,4,5,6], function(num) {
+        return num % 2 === 0;
+      })).to.eql([1,3,5]);
+      expect(_.reject([2,4,6], function(num) {
+        return num % 2 === 0;
+      })).to.eql([]);
+      expect(_.reject({a: 1, b: 2, c: 3, d: 4}, function(num) {
+        return num % 2 === 0;
+      })).to.eql([1,3]);
+      expect(_.reject('1234', function(num) {
+        return num % 2 === 0;
+      })).to.eql(['1','3']);
+    });
+    it('returns an empty array if no arguments are passed', function () {
+      expect(_.reject()).to.eql([]);
+    });
+    it('returns an empty array if given an invalid data type', function () {
+      expect(_.reject(1234, function(num) {
+        return num % 2 === 0;
+      })).to.eql([]);
+      expect(_.reject(true, function(num) {
         return num % 2 === 0;
       })).to.eql([]);
     });
