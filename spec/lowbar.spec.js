@@ -153,8 +153,8 @@ describe('_', function () {
     });
   });
 
-// REJECT
-  describe.only('#_.reject', function () {
+  // REJECT
+  describe('#_.reject', function () {
     it('is a function', function () {
       expect(_.reject).to.be.a('function');
     });
@@ -185,4 +185,52 @@ describe('_', function () {
     });
   });
 
+  // EACH
+  describe.only('#_.each', function () {
+    it('is a function', function () {
+      expect(_.each).to.be.a('function');
+    });
+    it('calls the iteratee the correct number of times when passed an array', function () {
+      let callCount = 0;
+      _.each([1, 2, 3], function() {
+        callCount++;
+      });
+      expect(callCount).to.equal(3);
+    });
+    it('calls the iteratee with its arguments (element, index, list) for an array', function () {
+      var elements = [];
+      var indexes = [];
+      var lists = [];
+      _.each([1, 2, 3], function(elem, i, list) {
+        elements.push(elem);
+        indexes.push(i);
+        lists.push(list);
+      });
+      expect(elements).to.eql([1, 2, 3]);
+      expect(indexes).to.eql([0, 1, 2]);
+      expect(lists).to.eql([[1, 2, 3], [1, 2, 3], [1, 2, 3]]);
+    });
+    it('calls the iteratee the correct number of times when passed an object', function () {
+      let callObjCount = 0;
+      _.each({a: 1, b: 2, c: 3}, function() {
+        callObjCount++;
+      });
+      expect(callObjCount).to.equal(3);
+    });
+    it('calls the iteratee with its arguments (value, key, list) for an object', function () {
+      var values = [];
+      var keys = [];
+      var lists = [];
+      _.each({a: 1, b: 2, c: 3}, function(val, key, list) {
+        values.push(val);
+        keys.push(key);
+        lists.push(list);
+      });
+      expect(values).to.eql([1, 2, 3]);
+      expect(keys).to.eql(['a', 'b', 'c']);
+      expect(lists).to.eql([{a: 1, b: 2, c: 3}, {a: 1, b: 2, c: 3}, {a: 1, b: 2, c: 3}]);
+    });
+  });
+
 });
+
