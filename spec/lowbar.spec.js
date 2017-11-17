@@ -1,5 +1,6 @@
 var path = require('path');
 var expect = require('chai').expect;
+var sinon = require('sinon');
 
 var _ = require(path.join(__dirname, '..', './lowbar.js'));
 
@@ -230,7 +231,38 @@ describe('_', function () {
       expect(keys).to.eql(['a', 'b', 'c']);
       expect(lists).to.eql([{a: 1, b: 2, c: 3}, {a: 1, b: 2, c: 3}, {a: 1, b: 2, c: 3}]);
     });
+
+    // using spies
+    it('calls the iteratee the correct number of times when passed an array (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each([1, 2, 3], spy);
+      expect(spy.callCount).to.equal(3);
+    });
+    it('calls the iteratee with its arguments (element, index, list) for an array (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each([1, 2, 3], spy);
+      var firstCall = spy.getCall(0);
+      var secondCall = spy.getCall(1);
+      var thirdCall = spy.getCall(2);
+      expect(firstCall.args).to.eql([1, 0, [1, 2, 3]]);
+      expect(secondCall.args).to.eql([2, 1, [1, 2, 3]]);
+      expect(thirdCall.args).eql([3, 2, [1, 2, 3]]);
+    });
+    it('calls the iteratee the correct number of times when passed an object (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each({a: 1, b: 2, c: 3}, spy);
+      expect(spy.callCount).to.equal(3);
+    });
+    it('calls the iteratee with its arguments (value, key, list) for an object (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each({a: 1, b: 2, c: 3}, spy);
+      var firstCall = spy.getCall(0);
+      var secondCall = spy.getCall(1);
+      var thirdCall = spy.getCall(2);
+      expect(firstCall.args).to.eql([1, 'a', {a: 1, b: 2, c: 3}]);
+      expect(secondCall.args).to.eql([2, 'b', {a: 1, b: 2, c: 3}]);
+      expect(thirdCall.args).eql([3, 'c', {a: 1, b: 2, c: 3}]);
+    });
   });
 
 });
-
