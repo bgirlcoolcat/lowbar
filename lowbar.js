@@ -101,6 +101,18 @@ _.reject = function (list, predicate) {
   return rejectList;
 };
 
+// EACH
+_.each = function (list, iteratee) {
+  if (Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      iteratee(list[i], i, list);
+    } 
+  } else if (typeof list === 'object') {
+    for (Object.key in list) {
+      iteratee(list[Object.key], Object.key, list);
+    }
+  } 
+};
 
 module.exports = _;
 
