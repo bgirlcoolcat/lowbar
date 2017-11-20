@@ -187,7 +187,7 @@ describe('_', function () {
   });
 
   // EACH
-  describe.only('#_.each', function () {
+  describe('#_.each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
@@ -231,11 +231,27 @@ describe('_', function () {
       expect(keys).to.eql(['a', 'b', 'c']);
       expect(lists).to.eql([{a: 1, b: 2, c: 3}, {a: 1, b: 2, c: 3}, {a: 1, b: 2, c: 3}]);
     });
+    it('should return the list if it is given an invalid data type', function () {
+      let count = 0;
+      expect(_.each(1234, function () { return count += 1; })).to.equal(1234);
+      expect(_.each(true, function () { return count += 1; })).to.equal(true);
+      // expect(_.each(null, function () { return count += 1; })).to.equal(null);
+    });
+    it('should return the list if an iteratee argument is not passed', function () {
+      expect(_.each([1, 2, 3])).to.eql([1, 2, 3]);
+      expect(_.each({a: 1, b: 2, c: 3})).to.eql({a: 1, b: 2, c: 3});
+      expect(_.each('hello')).to.eql('hello');
+    });
 
     // using spies
     it('calls the iteratee the correct number of times when passed an array (checked with a spy)', function () {
       var spy = sinon.spy();
       _.each([1, 2, 3], spy);
+      expect(spy.callCount).to.equal(3);
+    });
+    it('calls the iteratee the correct number of times when passed a string (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each('boo', spy);
       expect(spy.callCount).to.equal(3);
     });
     it('calls the iteratee with its arguments (element, index, list) for an array (checked with a spy)', function () {
@@ -262,6 +278,42 @@ describe('_', function () {
       expect(firstCall.args).to.eql([1, 'a', {a: 1, b: 2, c: 3}]);
       expect(secondCall.args).to.eql([2, 'b', {a: 1, b: 2, c: 3}]);
       expect(thirdCall.args).eql([3, 'c', {a: 1, b: 2, c: 3}]);
+    });
+    it('should return the list if it is given as an invalid data type (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each(1234, spy);
+      expect(spy.callCount).to.equal(0);
+    });
+    it('should not call the iteratee if given an invalid data type (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.each(1234, spy);
+      expect(spy.notCalled).to.equal(true);
+    });
+  });
+
+  // UNIQ
+  describe.only('#_.uniq', function () {
+    it('is a function', function () {
+      expect(_.uniq).to.be.a('function');
+    });
+    it('returns a duplicate-free version of the array', function () {
+      expect(_.uniq([1, 2, 1, 4, 1, 3])).to.eql([1, 2, 4, 3]);
+      expect(_.uniq([1, 1, 1, 1])).to.eql([1]);
+    });
+    it('returns a duplicate-free version of the string', function () {
+      expect(_.uniq('1263643')).to.eql(['1', '2', '6', '3', '4']);
+    });
+    it('should return an empty array when passed an empty array or string as an argument', function () {
+      expect(_.uniq([])).to.eql([]);
+      expect(_.uniq('')).to.eql([]);
+    });
+    it('should return an empty array when passed no argument', function () {
+      expect(_.uniq()).to.eql([]);
+    });
+    it('should return an empty array when passed an invalid data type', function () {
+      expect(_.uniq({a:1, b:3, c:6, d:6, e:3, f:2})).to.eql([]);
+      expect(_.uniq(1263643)).to.eql([]);
+      expect(_.uniq(true, false, true)).to.eql([]);
     });
   });
 
