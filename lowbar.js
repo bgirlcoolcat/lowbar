@@ -103,16 +103,39 @@ _.reject = function (list, predicate) {
 
 // EACH
 _.each = function (list, iteratee) {
-  if (Array.isArray(list)) {
-    for (var i = 0; i < list.length; i++) {
-      iteratee(list[i], i, list);
-    } 
+  if (!iteratee) {
+    return list;
+  }
+
+  if (Array.isArray(list) || typeof list === 'string') {
+      for (var i = 0; i < list.length; i++) {
+        iteratee(list[i], i, list);
+      }  
   } else if (typeof list === 'object') {
     for (Object.key in list) {
       iteratee(list[Object.key], Object.key, list);
     }
-  } 
+  } else {
+    return list;
+  }
 };
+
+// UNIQ
+_.uniq = function (arr) {
+  let newArr = [];
+
+  if (!(Array.isArray(arr)) && typeof arr !== 'string') {
+    return newArr;
+  }
+
+  for (var i = 0; i < arr.length; i++) {
+    if (newArr.indexOf(arr[i]) === - 1) {
+      newArr.push(arr[i]);
+    }
+  }
+  return newArr;
+};
+
 
 module.exports = _;
 
