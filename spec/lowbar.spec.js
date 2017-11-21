@@ -371,6 +371,13 @@ describe('_', function () {
       expect(_.contains('javascript', 't')).to.equal(true);
       expect(_.contains('javascript', 'z')).to.equal(false);
     });
+    it('returns false when given an invalid data type', function () {
+      expect(_.contains(12345, 3)).to.equal(false);
+      expect(_.contains(true, true)).to.equal(false);
+    });
+    it('returns false when passed no arguments', function () {
+      expect(_.contains()).to.equal(false);
+    });
   });
 
 });
