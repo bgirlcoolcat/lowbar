@@ -378,6 +378,10 @@ describe('_', function () {
     it('returns false when passed no arguments', function () {
       expect(_.contains()).to.equal(false);
     });
+    it('uses fromIndex to start a search at a given index', function () {
+      expect(_.contains([1, 2, 3], 3, 1)).to.equal(true);
+      expect(_.contains([1, 2, 3], 1, 1)).to.equal(false);
+    });
   });
 
 });
