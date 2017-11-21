@@ -152,6 +152,14 @@ _.map = function (list, iteratee) {
     }
 };
 
+// CONTAINS
+_.contains = function (list, value) {
+  if (typeof list === 'object') {
+    return Object.values(list).indexOf(value) >= 0;
+  } else {
+      return list.indexOf(value) >= 0;
+    }
+};
 
 module.exports = _;
 
