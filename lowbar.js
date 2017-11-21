@@ -154,13 +154,10 @@ _.map = function (list, iteratee) {
 
 // CONTAINS
 _.contains = function (list, value) {
-  if (list === undefined || !(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
-    return false;
-  }
   if (typeof list === 'object') {
     return Object.values(list).indexOf(value) >= 0;
   } else {
-      return list.indexOf(value) >= 0;
+      return _.indexOf(list, value) !== -1;
     }
 };
 
