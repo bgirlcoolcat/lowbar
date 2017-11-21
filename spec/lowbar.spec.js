@@ -337,6 +337,25 @@ describe('_', function () {
       expect(_.map([[1, 2, 3, 4]], _.first)).to.eql([1]);
       expect(_.map([[1, 2], [3, 4]], _.first)).to.eql([1, 3]);
     });
+    it('returns an empty array when passed an empty list as an argument', function () {
+      expect(_.map([], function (num) { 
+        return num + 1; 
+      })).to.eql([]);
+      expect(_.map({}, function (num) { 
+        return num + 1; 
+      })).to.eql([]);
+      expect(_.map('', function (num) { 
+        return num + 1; 
+      })).to.eql([]);
+    });
+    it('returns an empty array when passed an invalid data type', function () {
+      expect(_.map(2468, function (num) { 
+        return num + 1; 
+      })).to.eql([]);
+      expect(_.map(false, function (boolean) { 
+        return false === boolean; 
+      })).to.eql([]);
+    });
   });
 
 });
