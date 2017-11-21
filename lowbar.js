@@ -136,6 +136,22 @@ _.uniq = function (arr) {
   return newArr;
 };
 
+// MAP
+_.map = function (list, iteratee) {
+  let newArr = [];
+  if (typeof list === 'object') {
+    for (Object.key in list) {
+      newArr.push(iteratee(list[Object.key]));
+    }
+    return newArr;
+  } else {
+      for (var i = 0; i < list.length; i++) {
+        newArr.push(iteratee(list[i]));
+      }  
+        return newArr;
+    }
+};
+
 
 module.exports = _;
 
