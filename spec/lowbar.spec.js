@@ -318,7 +318,7 @@ describe('_', function () {
   });
 
   // MAP
-  describe.only('#_.map', function () {
+  describe('#_.map', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -355,6 +355,21 @@ describe('_', function () {
       expect(_.map(false, function (boolean) { 
         return false === boolean; 
       })).to.eql([]);
+    });
+  });
+
+  // CONTAINS
+  describe.only('#_.contains', function () {
+    it('is a function', function () {
+      expect(_.contains).to.be.a('function');
+    });
+    it('returns true if the value is present in the list; false if not', function () {
+      expect(_.contains([1, 2, 3], 3)).to.equal(true);
+      expect(_.contains([1, 2, 3], 4)).to.equal(false);
+      expect(_.contains({a:1, b:2, c:3}, 3)).to.equal(true);
+      expect(_.contains({a:1, b:2, c:3}, 4)).to.equal(false);
+      expect(_.contains('javascript', 't')).to.equal(true);
+      expect(_.contains('javascript', 'z')).to.equal(false);
     });
   });
 
