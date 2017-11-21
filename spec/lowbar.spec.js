@@ -292,7 +292,7 @@ describe('_', function () {
   });
 
   // UNIQ
-  describe.only('#_.uniq', function () {
+  describe('#_.uniq', function () {
     it('is a function', function () {
       expect(_.uniq).to.be.a('function');
     });
@@ -314,6 +314,24 @@ describe('_', function () {
       expect(_.uniq({a:1, b:3, c:6, d:6, e:3, f:2})).to.eql([]);
       expect(_.uniq(1263643)).to.eql([]);
       expect(_.uniq(true, false, true)).to.eql([]);
+    });
+  });
+
+  // MAP
+  describe.only('#_.map', function () {
+    it('is a function', function () {
+      expect(_.map).to.be.a('function');
+    });
+    it('produces a new array of values by mapping each value in list through a transformation function (iteratee)', function () {
+      expect(_.map([1, 2, 3], function (num) { 
+        return num * 3; 
+      })).to.eql([3, 6, 9]);
+      expect(_.map('12345', function (num) { 
+        return num * 3; 
+      })).to.eql([3, 6, 9, 12, 15]);
+      expect(_.map({a: 1, b: 2, c: 3}, function (num) { 
+        return num * 3; 
+      })).to.eql([3, 6, 9]);
     });
   });
 
