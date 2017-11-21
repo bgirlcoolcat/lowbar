@@ -333,6 +333,10 @@ describe('_', function () {
         return num * 3; 
       })).to.eql([3, 6, 9]);
     });
+    it('maps each value in array through a transformation function (using _.first as the iteratee)', function () {
+      expect(_.map([[1, 2, 3, 4]], _.first)).to.eql([1]);
+      expect(_.map([[1, 2], [3, 4]], _.first)).to.eql([1, 3]);
+    });
   });
 
 });
