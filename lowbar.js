@@ -153,12 +153,16 @@ _.map = function (list, iteratee) {
 };
 
 // CONTAINS
-_.contains = function (list, value) {
+_.contains = function(list, value, fromIndex) {
+  if (Array.isArray(list) || typeof list === 'string') {
+    fromIndex = fromIndex || 0;
+    let startIndex = list.slice(fromIndex); 
+      return _.indexOf(startIndex, value ) >= 0;
+  }
   if (typeof list === 'object') {
     return Object.values(list).indexOf(value) >= 0;
-  } else {
-      return _.indexOf(list, value) !== -1;
-    }
+  } 
+  return false;
 };
 
 
