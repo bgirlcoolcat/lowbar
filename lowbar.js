@@ -153,7 +153,7 @@ _.map = function (list, iteratee) {
 };
 
 // CONTAINS
-_.contains = function(list, value, fromIndex) {
+_.contains = function (list, value, fromIndex) {
   if (Array.isArray(list) || typeof list === 'string') {
     fromIndex = fromIndex || 0;
     let startIndex = list.slice(fromIndex); 
@@ -163,6 +163,15 @@ _.contains = function(list, value, fromIndex) {
     return Object.values(list).indexOf(value) >= 0;
   } 
   return false;
+};
+
+// PLUCK
+_.pluck = function (list, propertyName) {
+  let res = [];
+    for (var i = 0; i < list.length; i++) {
+      res[i] = list[i][propertyName];
+    }
+    return res;
 };
 
 
