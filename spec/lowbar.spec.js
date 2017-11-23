@@ -385,7 +385,7 @@ describe('_', function () {
   });
 
   // PLUCK
-  describe.only('#_.pluck', function () {
+  describe('#_.pluck', function () {
     it('is a function', function () {
       expect(_.pluck).to.be.a('function');
     });
@@ -415,6 +415,41 @@ describe('_', function () {
     it('returns an empty array for invalid data types', function () {
       expect(_.pluck(123456, 1)).to.eql([]);
       expect(_.pluck(true, true)).to.eql([]);
+    });
+  });
+
+  // EVERY
+  describe.only('#_.every', function () {
+    it('is a function', function () {
+      expect(_.every).to.be.a('function');
+    });
+    it('returns true if all of the values in the list pass the predicate truth test', function () {
+      expect(_.every([2, 4, 6], function (num) { 
+        return num % 2 === 0; 
+      })).to.equal(true);
+      expect(_.every(['bev', 'kate', 'lisa'], function (name) { 
+        return name.length > 2; 
+      })).to.equal(true);
+      expect(_.every('hhhhhh', function (char) { 
+        return char === 'h';
+      })).to.equal(true);
+      expect(_.every([true, true, true], function (value) { 
+        return (value === true);
+      })).to.equal(true);
+    });
+    it('returns false if one or more values in the list is false', function () {
+      expect(_.every([2, 4, 5], function (num) { 
+        return num % 2 === 0; 
+      })).to.equal(false);
+      expect(_.every(['bev', 'kate', 'lisa'], function (name) { 
+        return name.length > 3; 
+      })).to.equal(false);
+      expect(_.every({a:2, b:4, c:7}, function (num) { 
+        return num % 2 === 0;
+      })).to.equal(false);
+      expect(_.every({a: 'a', b: 'b', c: 1, d: 'd'}, function (char) { 
+        return typeof char === 'string';
+      })).to.be.false;
     });
   });
 
