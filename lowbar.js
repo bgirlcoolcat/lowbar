@@ -175,5 +175,19 @@ _.pluck = function (list, propertyName) {
     return res;
 };
 
+// EVERY
+_.every = function(list, predicate) {
+  if (Array.isArray(list) || typeof list === 'string') {
+    for (var i = 0; i < list.length; i++) {
+      if (!predicate(list[i])) return false;
+    }
+  } else if (typeof list === 'object') {
+    for (let key in list) {
+      if (!predicate(list[key])) return false;
+    }
+  }
+  return true;
+};
+
 
 module.exports = _;
