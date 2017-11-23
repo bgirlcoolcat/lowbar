@@ -359,7 +359,7 @@ describe('_', function () {
   });
 
   // CONTAINS
-  describe.only('#_.contains', function () {
+  describe('#_.contains', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
@@ -381,6 +381,22 @@ describe('_', function () {
     it('uses fromIndex to start a search at a given index', function () {
       expect(_.contains([1, 2, 3], 3, 1)).to.equal(true);
       expect(_.contains([1, 2, 3], 1, 1)).to.equal(false);
+    });
+  });
+
+  // PLUCK
+  describe.only('#_.pluck', function () {
+    it('is a function', function () {
+      expect(_.pluck).to.be.a('function');
+    });
+    it('returns an extracted list of property values', function () {
+      let animals = [{name: 'cat', type: 'feline'}, {name: 'dog', type: 'canine'}, {name: 'bear', type: 'ursine'}];
+      expect(_.pluck(animals, 'name')).to.eql(['cat', 'dog', 'bear']);
+      expect(_.pluck(animals, 'type')).to.eql(['feline', 'canine', 'ursine']);
+    });
+    it('returns an extracted list of property values for an object where every value is an object itself', function () {
+      var group =  { 'john' : {family: 45, rest: 60 }, 'max' : {family: 3, rest: 60} };
+      _.pluck(group, 'family');
     });
   });
 
