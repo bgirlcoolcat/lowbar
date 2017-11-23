@@ -167,6 +167,7 @@ _.contains = function (list, value, fromIndex) {
 
 // PLUCK
 _.pluck = function (list, propertyName) {
+  if (!list) return [];
   let res = [];
     for (var i = 0; i < list.length; i++) {
       res[i] = list[i][propertyName];
