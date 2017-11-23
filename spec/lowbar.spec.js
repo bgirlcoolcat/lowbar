@@ -398,6 +398,24 @@ describe('_', function () {
       var group =  { 'john' : {family: 45, rest: 60 }, 'max' : {family: 3, rest: 60} };
       _.pluck(group, 'family');
     });
+    it('returns undefined if list does not contain property name', function () {
+      let animals = [{name: 'cat', type: 'feline'}, {name: 'dog', type: 'canine'}, {name: 'bear', type: 'ursine'}];
+      expect(_.pluck(animals, 'noise')).to.eql([undefined, undefined, undefined]);
+    });
+    it('returns undefined if list is not an array of objects', function () {
+      let names = ['cat', 'dog', 'bear'];
+      expect(_.pluck(names, 'cat')).to.eql([undefined, undefined, undefined]);
+      let details = ['name', 'age', {name: 'Bev'}];
+      expect(_.pluck(details, 'name')).to.eql([undefined, undefined, 'Bev']);
+      expect(_.pluck('cat', 'a')).to.eql([undefined, undefined, undefined]);
+    });
+    it('returns an empty array if no arguments are passed', function () {
+      expect(_.pluck()).to.eql([]);
+    });
+    it('returns an empty array for invalid data types', function () {
+      expect(_.pluck(123456, 1)).to.eql([]);
+      expect(_.pluck(true, true)).to.eql([]);
+    });
   });
 
 });
