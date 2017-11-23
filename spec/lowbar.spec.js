@@ -467,6 +467,36 @@ describe('_', function () {
         return value === false;
       })).to.equal(true);
     });
+    it('stops traversing the list if a false element is found (array)', function () {
+      let count = 0;
+      _.every([1,2,3,4], function (number) {
+        count++;
+        return typeof number === 'number';
+      });
+      expect(count).to.equal(4);
+
+      count = 0;
+      _.every([1,2,'foo',4], function (number) {
+        count++;
+        return typeof number === 'number';
+      });
+      expect(count).to.equal(3);
+    });
+    it('stops traversing the list if a false element is found (object)', function () {
+      let count = 0;
+      _.every({a: 'a', b: 'b', c: 'c', d: 'd'}, function (chars) {
+        count++;
+        return typeof chars === 'string';
+      });
+      expect(count).to.equal(4);
+
+      count = 0;
+      _.every({a: 'a', b: 1, c: 2, d: 'd'}, function (chars) {
+        count++;
+        return typeof chars === 'string';
+      });
+      expect(count).to.equal(2);
+    });
   });
 
 });
