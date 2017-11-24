@@ -529,7 +529,7 @@ describe('_', function () {
       it('returns false if no arguments are passed', function () {
         expect(_.some()).to.be.false;
       });
-      it('returns true if given an invalid data type (number or boolean)', function () {
+      it('returns false if given an invalid data type (number or boolean)', function () {
         expect(_.some(2879, function (num) { 
           return typeof num === 'number'; 
         })).to.be.false;
