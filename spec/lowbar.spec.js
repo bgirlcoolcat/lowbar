@@ -587,6 +587,17 @@ describe('_', function () {
       arr1.push('z');
       expect(result).to.eql( {a: 1, b: 2, c: ['x', 'y', 'z']});
     });
+    it('is in order, so the last source will override properties of the same name in previous arguments', function () {
+      let o1 = { a: 1, b: 1, c: 1 };
+      let o2 = { b: 2, c: 2 };
+      let o3 = { c: 3 };
+      expect(_.extend({}, o1, o2, o3)).to.eql({a: 1, b: 2, c: 3});
+
+      let a1 = [1, 1, 1, 1, 1];
+      let a2 = [2, 2, 2];
+      let a3 = [3];
+      expect(_.extend(a1, a2, a3)).to.eql([3, 2, 2, 1, 1]);
+    });
   });
 
 });
