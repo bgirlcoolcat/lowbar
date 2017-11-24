@@ -189,5 +189,19 @@ _.every = function(list, predicate) {
   return true;
 };
 
+// SOME
+_.some = function(list, predicate) {
+  if (Array.isArray(list) || typeof list === 'string') {
+    for (var i = 0; i < list.length; i++) {
+      if (predicate(list[i])) return true;
+    }
+  } else if (typeof list === 'object') {
+    for (let key in list) {
+      if (predicate(list[key])) return true;
+    }
+  }
+  return false;
+};
+
 
 module.exports = _;
