@@ -598,6 +598,22 @@ describe('_', function () {
       let a3 = [3];
       expect(_.extend(a1, a2, a3)).to.eql([3, 2, 2, 1, 1]);
     });
+    it('returns undefined if no arguments are passed', function () {
+      expect(_.extend()).to.equal(undefined);
+    });
+    it('returns the destination if invalid properties (i.e. a string or number) cannot be added to it', function () {
+      let a = [1, 2, 3, 4, 5];
+      let b = 6;
+      expect(_.extend(a, b)).to.eql([1,2,3,4,5]);
+      
+      let s1 = 'hello';
+      let s2 = 'world';
+      expect(_.extend(s1, s2)).to.equal('hello');
+
+      let n1 = 1234;
+      let n2 = 5678;
+      expect(_.extend(n1, n2)).to.equal(1234);
+    });
   });
 
 });
