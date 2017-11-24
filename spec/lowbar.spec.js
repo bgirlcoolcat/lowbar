@@ -537,6 +537,22 @@ describe('_', function () {
           return value === true; 
         })).to.be.false;
       });
+      it('stops traversing the list if a true element is found (array)', function () {
+        let count = 0;
+        _.some(['foo', 2, 'boo', 4], function (values) {
+          count++;
+          return typeof values === 'number';
+        });
+        expect(count).to.equal(2);
+      });
+      it('stops traversing the list if a true element is found (object)', function () {
+        let count = 0;
+        _.some({a: 1, b: 2, c: 'a', d: 4}, function (chars) {
+          count++;
+          return typeof chars === 'string';
+        });
+        expect(count).to.equal(3);
+      });
   });
 
 });
