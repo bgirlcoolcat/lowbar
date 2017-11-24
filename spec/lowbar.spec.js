@@ -419,7 +419,7 @@ describe('_', function () {
   });
 
   // EVERY
-  describe.only('#_.every', function () {
+  describe('#_.every', function () {
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
@@ -497,6 +497,35 @@ describe('_', function () {
       });
       expect(count).to.equal(2);
     });
+  });
+
+  // SOME
+  describe.only('#_.some', function () {
+    it('is a function', function () {
+      expect(_.some).to.be.a('function');
+    });
+    it('returns true if any of the values in the list pass the predicate truth test', function () {
+      expect(_.some([2, 4, 5], function (num) { 
+        return num % 2 === 0; 
+      })).to.equal(true);
+      expect(_.some([null, 0, 'yes', false], function (truthy) { 
+        return truthy; 
+      })).to.be.true;
+      expect(_.some({a: 'a', b: 'b', c: 1, d: 'd'}, function (char) { 
+        return typeof char === 'string';
+      })).to.be.true;
+    });
+    it('returns false if none of the values in the list pass the predicate truth test', function () {
+      expect(_.some([3, 5, 7], function (num) { 
+        return num % 2 == 0; 
+      })).to.equal(false);
+      expect(_.some(['Sandra', 'Alison', 'Kate', 'Paul'], function (name) { 
+        return name.includes('z'); 
+      })).to.be.false;
+      expect(_.some('hhhhhh', function (char) { 
+        return char === 'g';
+      })).to.be.false;
+      });
   });
 
 });
