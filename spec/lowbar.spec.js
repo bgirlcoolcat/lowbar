@@ -567,6 +567,26 @@ describe('_', function () {
       let o3 = { gender: 'male' };
       expect(_.extend({name: 'moe'}, o1,o2,o3)).to.eql({name: 'moe', age: 50, hairColour: 'brown', gender: 'male'});
     });
+    it('handles nested objects copied by reference, not duplicated', function () {
+      let obj1 = {d: 'D', e: 'E'};
+      let obj2 = {a: 'A', b: 'B'};
+      let obj3 = {c: obj1};
+      let result = _.extend({}, obj2, obj3);
+      expect(_.extend(result)).to.eql( {a: 'A', b: 'B', c: {d: 'D', e: 'E'}});
+
+      obj1.f = 'F';
+      expect(result).to.eql( {a: 'A', b: 'B', c: {d: 'D', e: 'E', f: 'F'}});
+    });
+    it('handles nested arrays copied by reference, not duplicated', function () {
+      let arr1 = ['x', 'y'];
+      let obj2 = {a: 1, b: 2};
+      let obj3 = {c: arr1};
+      let result = _.extend(obj2, obj3);
+      expect(result).to.eql( {a: 1, b: 2, c: ['x', 'y']});
+
+      arr1.push('z');
+      expect(result).to.eql( {a: 1, b: 2, c: ['x', 'y', 'z']});
+    });
   });
 
 });
