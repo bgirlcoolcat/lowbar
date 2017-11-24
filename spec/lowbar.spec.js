@@ -460,10 +460,10 @@ describe('_', function () {
       })).to.equal(false);
     });
     it('returns true if given an invalid data type (number or boolean)', function () {
-      expect(_.every(1579, function(num) {
+      expect(_.every(1579, function (num) {
         return num % 2 === 0;
       })).to.equal(true);
-      expect(_.every(false, function(value) {
+      expect(_.every(false, function (value) {
         return value === false;
       })).to.equal(true);
     });
@@ -525,6 +525,17 @@ describe('_', function () {
       expect(_.some('hhhhhh', function (char) { 
         return char === 'g';
       })).to.be.false;
+      });
+      it('returns false if no arguments are passed', function () {
+        expect(_.some()).to.be.false;
+      });
+      it('returns true if given an invalid data type (number or boolean)', function () {
+        expect(_.some(2879, function (num) { 
+          return typeof num === 'number'; 
+        })).to.be.false;
+        expect(_.some(true, function (value) { 
+          return value === true; 
+        })).to.be.false;
       });
   });
 
