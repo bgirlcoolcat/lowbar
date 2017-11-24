@@ -454,11 +454,6 @@ describe('_', function () {
     it('returns true if no arguments are passed', function () {
       expect(_.every()).to.equal(true);
     });
-    it('returns false if given an invalid data type (string)', function () {
-      expect(_.every('2,4,6,8', function(num) {
-        return num % 2 === 0;
-      })).to.equal(false);
-    });
     it('returns true if given an invalid data type (number or boolean)', function () {
       expect(_.every(1579, function (num) {
         return num % 2 === 0;
