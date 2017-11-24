@@ -203,5 +203,10 @@ _.some = function(list, predicate) {
   return false;
 };
 
+// EXTEND
+_.extend = function(destination, ...sources) {
+  return Object.assign(destination, ...sources);
+};
+
 
 module.exports = _;
