@@ -205,7 +205,11 @@ _.some = function(list, predicate) {
 
 // EXTEND
 _.extend = function(destination, ...sources) {
-  return Object.assign(destination, ...sources);
+  if (typeof destination === 'object' || Array.isArray(destination)) {
+    return Object.assign(destination, ...sources);
+  } else {
+    return destination;
+  }
 };
 
 
