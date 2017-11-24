@@ -495,7 +495,7 @@ describe('_', function () {
   });
 
   // SOME
-  describe.only('#_.some', function () {
+  describe('#_.some', function () {
     it('is a function', function () {
       expect(_.some).to.be.a('function');
     });
@@ -548,6 +548,25 @@ describe('_', function () {
         });
         expect(count).to.equal(3);
       });
+  });
+
+  // EXTEND
+  describe.only('#_.extend', function () {
+    it('is a function', function () {
+      expect(_.extend).to.be.a('function');
+    });
+    it('shallowly copies all properties in source object to destination object, and returns the destination object', function () {
+      expect(_.extend({name: 'moe'}, {age: 50})).to.eql({name: 'moe', age: 50});
+      expect(_.extend({name: 'moe'}, {age: 50, hairColour: 'brown', gender: 'male'})).to.eql({name: 'moe', age: 50, hairColour: 'brown', gender: 'male'});
+    });
+    it('shallowly copies all properties in source objects to destination object, and returns the destination object', function () {
+      expect(_.extend({name: 'moe'}, {age: 50}, {hairColour: 'brown'}, {gender: 'male'})).to.eql({name: 'moe', age: 50, hairColour: 'brown', gender: 'male'});
+
+      let o1 = { age: 50 };
+      let o2 = { hairColour: 'brown' };
+      let o3 = { gender: 'male' };
+      expect(_.extend({name: 'moe'}, o1,o2,o3)).to.eql({name: 'moe', age: 50, hairColour: 'brown', gender: 'male'});
+    });
   });
 
 });
