@@ -212,5 +212,15 @@ _.extend = function(destination, ...sources) {
   }
 };
 
+// DEFAULTS
+_.defaults = function(object, defaults) {
+    for (var key in defaults) {
+      if (object[key] === undefined) {
+        object[key] = defaults[key];
+      }
+    }  
+    return object;
+};
+
 
 module.exports = _;
