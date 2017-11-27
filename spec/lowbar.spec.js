@@ -551,7 +551,7 @@ describe('_', function () {
   });
 
   // EXTEND
-  describe.only('#_.extend', function () {
+  describe('#_.extend', function () {
     it('is a function', function () {
       expect(_.extend).to.be.a('function');
     });
@@ -613,6 +613,25 @@ describe('_', function () {
       let n1 = 1234;
       let n2 = 5678;
       expect(_.extend(n1, n2)).to.equal(1234);
+    });
+  });
+
+  // DEFAULTS
+  describe.only('#_.defaults', function () {
+    it('is a function', function () {
+      expect(_.defaults).to.be.a('function');
+    });
+    it('returns the object with undefined properties filled in with the first value present in the default object', function () {
+      expect(_.defaults({flavor: 'chocolate'}, {flavor: 'vanilla', sprinkles: 'lots'})
+      ).to.eql({flavor: 'chocolate', sprinkles: 'lots'});
+    });
+    it('returns the object with undefined properties filled in with the first value present in the default array', function () {
+      expect(_.defaults({flavor: 'chocolate'}, ['sprinkles', 'sauce'])
+      ).to.eql({0: 'sprinkles', 1: 'sauce', flavor: 'chocolate'});
+    });
+    it('returns the array with unfilled index positions filled in with the first value present in the index position in the default array', function () {
+      expect(_.defaults(['apples', 'bananas'], ['cherries', 'dates', 'oranges', 'pears'])
+      ).to.eql(['apples', 'bananas', 'oranges', 'pears']);
     });
   });
 
