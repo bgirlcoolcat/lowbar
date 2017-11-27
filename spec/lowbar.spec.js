@@ -647,7 +647,20 @@ describe('_', function () {
       expect(_.defaults(['cat', 'dog'], ['bear', 'hippo', 'panda', 'snake'], ['koala', 'elephant', 'monkey', 'tiger', 'lion'])
       ).to.eql(['cat', 'dog', 'panda', 'snake', 'lion']);
     });
-
+    it('returns undefined if no arguments are passed', function () {
+      expect(_.defaults()
+      ).to.be.undefined;
+    });
+    it('returns the object when no default objects are passed', function () {
+      expect(_.defaults({flavor: 'chocolate'})
+      ).to.eql({flavor: 'chocolate'});
+    });
+    it('returns the object when given an invalid data type', function () {
+      expect(_.defaults(1268, 4002)
+      ).to.eql(1268);
+      expect(_.defaults('Hello', {greeting: 'Good afternoon'})
+      ).to.eql('Hello');
+    });
   });
 
 });
