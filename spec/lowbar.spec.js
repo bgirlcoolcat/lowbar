@@ -633,6 +633,21 @@ describe('_', function () {
       expect(_.defaults(['apples', 'bananas'], ['cherries', 'dates', 'oranges', 'pears'])
       ).to.eql(['apples', 'bananas', 'oranges', 'pears']);
     });
+    it('returns the object with undefined properties filled in with the first value present in the list of defaults objects', function () {
+      let iceCream = {flavor: 'chocolate'};
+      expect(_.defaults(iceCream, {flavor: 'vanilla', sprinkles: 'lots'}, {sauce: 'raspberry', additions: 'flake'})
+      ).to.eql({flavor: 'chocolate', sprinkles: 'lots', sauce: 'raspberry', additions: 'flake'});
+
+      iceCream = {flavor: 'chocolate'};
+      expect(_.defaults(iceCream, {flavor: 'vanilla', sprinkles: 'lots'}, {sauce: 'raspberry', additions: 'flake'}, 
+      {flavor: 'strawberry', sprinkles: 'few'})
+      ).to.eql({flavor: 'chocolate', sprinkles: 'lots', sauce: 'raspberry', additions: 'flake'});
+    });
+    it('returns the array with unfilled index positions filled in with the first value present in the index position in the list of default arrays', function () {
+      expect(_.defaults(['cat', 'dog'], ['bear', 'hippo', 'panda', 'snake'], ['koala', 'elephant', 'monkey', 'tiger', 'lion'])
+      ).to.eql(['cat', 'dog', 'panda', 'snake', 'lion']);
+    });
+
   });
 
 });
