@@ -213,13 +213,15 @@ _.extend = function(destination, ...sources) {
 };
 
 // DEFAULTS
-_.defaults = function(object, defaults) {
-    for (var key in defaults) {
+_.defaults = function(object) {
+  for (var i = 1; i < arguments.length; i++) {
+    for (var key in arguments[i]) {
       if (object[key] === undefined) {
-        object[key] = defaults[key];
+        object[key] = arguments[i][key];
       }
     }  
-    return object;
+  }
+  return object;
 };
 
 
