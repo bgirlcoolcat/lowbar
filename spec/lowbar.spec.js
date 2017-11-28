@@ -617,7 +617,7 @@ describe('_', function () {
   });
 
   // DEFAULTS
-  describe.only('#_.defaults', function () {
+  describe('#_.defaults', function () {
     it('is a function', function () {
       expect(_.defaults).to.be.a('function');
     });
@@ -660,6 +660,42 @@ describe('_', function () {
       ).to.eql(1268);
       expect(_.defaults('Hello', {greeting: 'Good afternoon'})
       ).to.eql('Hello');
+    });
+  });
+
+  // REDUCE
+  describe.only('#_.reduce', function () {
+    it('is a function', function () {
+      expect(_.reduce).to.be.a('function');
+    });
+    it('reduces a list of values into a single value', function () {
+      expect(_.reduce([1, 2, 3], function (acc, num) { 
+        return acc + num; 
+      }, 0)).to.equal(6);
+      expect(_.reduce(['reducing', 'is', 'simple'], function (acc, str) { 
+        return acc + str; 
+      }, '')).to.equal('reducingissimple');
+      expect(_.reduce({a: 1, b: 2, c: 3}, function (acc, num) { 
+        return acc + num; 
+      }, 0)).to.equal(6);
+    });
+    it('flattens (reduces) an array of arrays to a single array', function () {
+      expect(_.reduce([[0, 1], [2, 3], [4, 5]], function(acc, elem) {
+        acc = acc.concat(elem);
+        return acc;
+      },[])).to.eql([0, 1, 2, 3, 4, 5]);
+
+    });
+    it('provides a tally of recurring values in an array', function () {
+      let desserts = ['cake', 'cake', 'cake', 'trifle', 'jelly', 'trifle', 'jelly', 'coffee cake'];
+      expect(_.reduce(desserts, function (acc, dessert) { 
+        if (acc[dessert]) { 
+          acc[dessert]++; 
+        } else { 
+          acc[dessert] = 1; 
+          } 
+        return acc; 
+      }, {})).to.eql({'cake': 3, 'trifle': 2, 'jelly': 2, 'coffee cake': 1});
     });
   });
 
