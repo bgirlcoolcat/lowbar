@@ -224,5 +224,19 @@ _.defaults = function(object) {
   return object;
 };
 
+// REDUCE
+_.reduce = function (list, iteratee, memo) {
+  if (Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      memo = iteratee(memo, list[i], i, list);
+    }
+  } else if (typeof list === 'object') {
+    for (let key in list) {
+      memo = iteratee(memo, list[key], i, list);
+    }
+  }
+  return memo;
+};
+
 
 module.exports = _;
