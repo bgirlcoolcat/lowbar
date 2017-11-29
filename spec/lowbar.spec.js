@@ -101,7 +101,7 @@ describe('_', function () {
   });
 
   // INDEX OF
-  describe('#_.indexOf', function () {
+  describe.only('#_.indexOf', function () {
     it('is a function', function () {
       expect(_.indexOf).to.be.a('function');
     });
@@ -119,6 +119,19 @@ describe('_', function () {
       expect(_.indexOf(4280, 4)).to.equal(-1);
       expect(_.indexOf({x:1, y:2, z:3}, 3)).to.equal(-1);
       expect(_.indexOf(true), true).to.equal(-1);
+    });
+    it('uses a binary search on a large sorted array, when passed true for isSorted as the third argument', function () {
+      expect(_.indexOf([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 5, true)).to.equal(4);
+      expect(_.indexOf([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 16, true)).to.equal(-1);
+      expect(_.indexOf([1,5,10,4,6,8,7,11,15,12,14,2,9,13,3], 8, false)).to.equal(5);
+      expect(_.indexOf('ello', 'o', true)).to.equal(3);
+      expect(_.indexOf('hello world', 'w', true)).to.equal(-1);
+      expect(_.indexOf('hello world', 'w', false)).to.equal(6);
+    });
+    it('looks for the first matching value in the array after the given index if a number is passed as the third argument', function () {
+      expect(_.indexOf([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 5, 3)).to.equal(4);
+      expect(_.indexOf([1,1,2,2,3,3,4,4,5,5], 2, 3)).to.equal(3);
+      expect(_.indexOf([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15], 5, 7)).to.equal(-1);
     });
   });
 
@@ -359,7 +372,7 @@ describe('_', function () {
   });
 
   // CONTAINS
-  describe.only('#_.contains', function () {
+  describe('#_.contains', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
