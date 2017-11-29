@@ -227,12 +227,15 @@ _.defaults = function(object) {
 // REDUCE
 _.reduce = function (list, iteratee, memo) {
   if (Array.isArray(list)) {
+    var noMemo = arguments.length < 3;
     for (var i = 0; i < list.length; i++) {
-      memo = iteratee(memo, list[i], i, list);
+      noMemo ? (noMemo = false, memo = list[i]) : memo = iteratee(memo, list[i], i, list);
     }
-  } else if (typeof list === 'object') {
+  }
+  else if (typeof list === 'object') {
+    noMemo = arguments.length < 3;
     for (let key in list) {
-      memo = iteratee(memo, list[key], i, list);
+      noMemo ? (noMemo = false, memo = list[key]) : memo = iteratee(memo, list[key], i, list);
     }
   }
   return memo;
