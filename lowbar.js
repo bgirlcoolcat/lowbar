@@ -155,12 +155,10 @@ _.map = function (list, iteratee) {
 // CONTAINS
 _.contains = function (list, value, fromIndex) {
   if (Array.isArray(list) || typeof list === 'string') {
-    fromIndex = fromIndex || 0;
-    let startIndex = list.slice(fromIndex); 
-      return _.indexOf(startIndex, value ) >= 0;
+      return list.indexOf(value, fromIndex) > -1;
   }
   if (typeof list === 'object') {
-    return Object.values(list).indexOf(value) >= 0;
+    return Object.values(list).indexOf(value, fromIndex) > -1;
   } 
   return false;
 };
