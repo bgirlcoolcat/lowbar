@@ -684,7 +684,10 @@ describe('_', function () {
         acc = acc.concat(elem);
         return acc;
       },[])).to.eql([0, 1, 2, 3, 4, 5]);
-
+      expect(_.reduce([[0, 1], [2, 3], [4, 5]], function(acc, elem) {
+        acc = acc.concat(elem);
+        return acc;
+      },[])).to.have.lengthOf(6);
     });
     it('provides a tally of recurring values in an array', function () {
       let desserts = ['cake', 'cake', 'cake', 'trifle', 'jelly', 'trifle', 'jelly', 'coffee cake'];
@@ -696,6 +699,30 @@ describe('_', function () {
           } 
         return acc; 
       }, {})).to.eql({'cake': 3, 'trifle': 2, 'jelly': 2, 'coffee cake': 1});
+    });
+    it('calls the iteratee the correct number of times when passed an array (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.reduce([1, 2, 3], spy, 0);
+      expect(spy.callCount).to.equal(3);
+    });
+    it('uses the first element of the array when no memo is passed', function () {
+      expect(_.reduce([1, 2, 3], function (acc, num) { 
+        return acc + num; 
+      })).to.equal(6);
+      expect(_.reduce([[0, 1], [2, 3], [4, 5]], function(acc, elem) {
+        acc = acc.concat(elem);
+        return acc;
+      })).to.eql([0, 1, 2, 3, 4, 5]);
+    });
+    it('uses the first element of the array when no memo is passed (checked with a spy)', function () {
+      const spy = sinon.spy();
+      _.reduce([1, 2, 3, 4, 5, 6], spy);
+      expect(spy.callCount).to.equal(5);
+    });
+    it('uses the first value of the object when no memo is passed', function () {
+      expect(_.reduce({a: 1, b: 2, c: 3}, function (acc, num) { 
+        return acc + num; 
+      })).to.equal(6);
     });
   });
 
