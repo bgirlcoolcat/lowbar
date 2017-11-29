@@ -359,7 +359,7 @@ describe('_', function () {
   });
 
   // CONTAINS
-  describe('#_.contains', function () {
+  describe.only('#_.contains', function () {
     it('is a function', function () {
       expect(_.contains).to.be.a('function');
     });
@@ -381,6 +381,10 @@ describe('_', function () {
     it('uses fromIndex to start a search at a given index', function () {
       expect(_.contains([1, 2, 3], 3, 1)).to.equal(true);
       expect(_.contains([1, 2, 3], 1, 1)).to.equal(false);
+      expect(_.contains({a:1, b:2, c:3}, 3, 2)).to.equal(true);
+      expect(_.contains({a:1, b:2, c:3}, 1, 2)).to.equal(false);
+      expect(_.contains('javascript', 'v', 1)).to.equal(true);
+      expect(_.contains('javascript', 'j', 1)).to.equal(false);
     });
   });
 
@@ -664,7 +668,7 @@ describe('_', function () {
   });
 
   // REDUCE
-  describe.only('#_.reduce', function () {
+  describe('#_.reduce', function () {
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
