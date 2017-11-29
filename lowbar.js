@@ -1,5 +1,22 @@
 const _ = {};
 
+function binarySearch (arr, searchTerm) {
+  let guess,
+      min = 0,
+      max = arr.length - 1; 
+  while (min <= max) {
+      guess = Math.floor((min + max) / 2);
+      if (arr[guess] === searchTerm) {
+        return guess;
+      } else if (arr[guess] < searchTerm) {
+          min = guess + 1;
+        } else {
+            max = guess - 1;
+          }
+  }
+  return - 1;
+}
+
 // IDENTITY
 _.identity = function (value) {
   return value;
@@ -38,17 +55,26 @@ _.last = function (array, num) {
 };
 
 // INDEX OF
-_.indexOf = function (array, value) {
+_.indexOf = function (array, value, isSorted) {
+  isSorted = isSorted || false;
+
   if (array === undefined || !(Array.isArray(array)) && typeof array !== 'string') {
     return - 1;
   }
-  if (typeof array === 'string') {
+  if (typeof array === 'string' && isSorted === false) {
     return array.search(value);
   } 
-  if (Array.isArray(array)) {
+  if (Array.isArray(array) && isSorted === false) {
     return array.findIndex(function(elem) {
       return elem === value;
     });
+  }
+  if ((Array.isArray(array) || typeof array === 'string') && isSorted === true) {
+    return binarySearch(array, value);
+  }
+  if ((Array.isArray(array) || typeof array === 'string') && typeof isSorted === 'number') {
+    let fromIndex = isSorted;
+    return array.indexOf(value, fromIndex);
   }
 };
 
