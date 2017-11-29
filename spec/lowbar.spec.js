@@ -724,6 +724,21 @@ describe('_', function () {
         return acc + num; 
       })).to.equal(6);
     });
+    it('returns undefined when an empty array is passed', function () {
+      expect(_.reduce([], function (acc, num) { 
+        return acc + num; 
+      })).to.be.undefined;
+    });
+    it('returns undefined when an empty object is passed', function () {
+      expect(_.reduce({}, function (acc, num) { 
+        return acc + num; 
+      })).to.be.undefined;
+    });
+    it('returns memo when invalid data is passed', function () {
+      expect(_.reduce(123, function (acc, num) { 
+        return acc + num; 
+      }, 0)).to.equal(0);
+    });
   });
 
 });
