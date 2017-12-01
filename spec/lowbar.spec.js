@@ -176,7 +176,7 @@ describe('_', function () {
   });
 
   // REJECT
-  describe.only('#_.reject', function () {
+  describe('#_.reject', function () {
     it('is a function', function () {
       expect(_.reject).to.be.a('function');
     });
@@ -368,7 +368,7 @@ describe('_', function () {
   });
 
   // MAP
-  describe('#_.map', function () {
+  describe.only('#_.map', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -405,6 +405,14 @@ describe('_', function () {
       expect(_.map(false, function (boolean) { 
         return false === boolean; 
       })).to.eql([]);
+    });
+
+    // context argument is passed
+    it('binds the iteratee to the context object, if one is passed', function () {
+      expect(_.map([1, 2, 3], function (elem) { 
+        return elem * this.multiplier; 
+      }, {multiplier: 3})
+      ).to.eql([3, 6, 9]);
     });
   });
 
