@@ -210,7 +210,10 @@ _.pluck = function (list, propertyName) {
 };
 
 // EVERY
-_.every = function(list, predicate) {
+_.every = function(list, predicate, context) {
+  if (context) {
+    predicate = predicate.bind(context);
+  }
   if (Array.isArray(list) || typeof list === 'string') {
     for (var i = 0; i < list.length; i++) {
       if (!predicate(list[i])) return false;
