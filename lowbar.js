@@ -105,14 +105,16 @@ _.filter = function (list, predicate, context) {
 };
 
 // REJECT
-_.reject = function (list, predicate) {
+_.reject = function (list, predicate, context) {
 
   let rejectList = [];
 
+  if (context) {
+    predicate = predicate.bind(context);
+  }
   if (!(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
     return rejectList;
   }
-
   if (typeof list === 'object') {
     for (var j = 0 in list) {
       if (predicate(list[j]) === false) {
