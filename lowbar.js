@@ -169,8 +169,12 @@ _.uniq = function (arr) {
 };
 
 // MAP
-_.map = function (list, iteratee) {
+_.map = function (list, iteratee, context) {
   let newArr = [];
+
+  if (context) {
+    iteratee = iteratee.bind(context);
+  }
   if (typeof list === 'object') {
     for (Object.key in list) {
       newArr.push(iteratee(list[Object.key]));
