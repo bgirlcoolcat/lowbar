@@ -136,7 +136,7 @@ describe('_', function () {
   });
 
   // FILTER
-  describe('#_.filter', function () {
+  describe.only('#_.filter', function () {
     it('is a function', function () {
       expect(_.filter).to.be.a('function');
     });
@@ -164,6 +164,14 @@ describe('_', function () {
       expect(_.filter(true, function(num) {
         return num % 2 === 0;
       })).to.eql([]);
+    });
+
+    // context argument is passed
+    it('binds the predicate to the context object, if one is passed', function () {
+      expect(_.filter([1,2,3,4,5,6], function (elem) {
+        return elem % this.multiplier === 0;
+      }, {multiplier: 2})
+    ).to.eql([2,4,6]);
     });
   });
 
@@ -200,7 +208,7 @@ describe('_', function () {
   });
 
   // EACH
-  describe.only('#_.each', function () {
+  describe('#_.each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
