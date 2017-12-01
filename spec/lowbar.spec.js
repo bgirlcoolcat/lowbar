@@ -101,7 +101,7 @@ describe('_', function () {
   });
 
   // INDEX OF
-  describe.only('#_.indexOf', function () {
+  describe('#_.indexOf', function () {
     it('is a function', function () {
       expect(_.indexOf).to.be.a('function');
     });
@@ -200,7 +200,7 @@ describe('_', function () {
   });
 
   // EACH
-  describe('#_.each', function () {
+  describe.only('#_.each', function () {
     it('is a function', function () {
       expect(_.each).to.be.a('function');
     });
@@ -256,7 +256,7 @@ describe('_', function () {
       expect(_.each('hello')).to.eql('hello');
     });
 
-    // using spies
+    // testing with spies
     it('calls the iteratee the correct number of times when passed an array (checked with a spy)', function () {
       var spy = sinon.spy();
       _.each([1, 2, 3], spy);
@@ -301,6 +301,27 @@ describe('_', function () {
       var spy = sinon.spy();
       _.each(1234, spy);
       expect(spy.notCalled).to.equal(true);
+    });
+
+    // context argument is passed
+    it('takes a context argument (array)', function () {
+      let answers = [];
+      _.each([1,2,3], function (elem) {
+        answers.push(elem * this.multiplier);
+      }, {multiplier: 5});
+      expect(answers).to.eql([5,10,15]);
+      });
+    it('takes a context argument (object)', function () {
+      let carSelling = [];
+      let features = {one: 'auto-pilot', two: 'falcon wing doors', three: 'electric drive'};
+      let salesperson = {
+          getPitch: function () {return 'The Tesla has ';},
+          sellCar: function (msg) {return this.getPitch() + msg;}
+      };
+      _.each(features, function (value) {
+        carSelling.push(this.sellCar(value)
+      );}, salesperson);
+      expect(carSelling).to.eql(['The Tesla has auto-pilot', 'The Tesla has falcon wing doors', 'The Tesla has electric drive']);  
     });
   });
 
