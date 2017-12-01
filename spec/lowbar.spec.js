@@ -620,7 +620,7 @@ describe('_', function () {
     });
 
     // context argument is passed
-    it.only('binds the predicate to the context object, if one is passed', function () {
+    it('binds the predicate to the context object, if one is passed', function () {
       expect(_.some([2, 4, 5], function (elem) {
         return elem % this.multiplier === 0;
       }, {multiplier: 2})
@@ -742,7 +742,7 @@ describe('_', function () {
   });
 
   // REDUCE
-  describe('#_.reduce', function () {
+  describe.only('#_.reduce', function () {
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
@@ -816,6 +816,14 @@ describe('_', function () {
       expect(_.reduce(123, function (acc, num) { 
         return acc + num; 
       }, 0)).to.equal(0);
+    });
+
+    // context argument is passed
+    it('binds the iteratee to the context object, if one is passed', function () {
+      expect(_.reduce([1, 2, 3], function (acc, elem) { 
+        return acc + elem + this.multiplier; 
+      }, 0, {multiplier: 2})
+      ).to.equal(12);
     });
   });
 
