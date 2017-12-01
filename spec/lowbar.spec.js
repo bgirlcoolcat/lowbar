@@ -171,7 +171,7 @@ describe('_', function () {
       expect(_.filter([1,2,3,4,5,6], function (elem) {
         return elem % this.multiplier === 0;
       }, {multiplier: 2})
-    ).to.eql([2,4,6]);
+      ).to.eql([2,4,6]);
     });
   });
 
@@ -368,7 +368,7 @@ describe('_', function () {
   });
 
   // MAP
-  describe.only('#_.map', function () {
+  describe('#_.map', function () {
     it('is a function', function () {
       expect(_.map).to.be.a('function');
     });
@@ -481,7 +481,7 @@ describe('_', function () {
   });
 
   // EVERY
-  describe('#_.every', function () {
+  describe.only('#_.every', function () {
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
@@ -553,6 +553,14 @@ describe('_', function () {
         return typeof chars === 'string';
       });
       expect(count).to.equal(2);
+    });
+
+    // context argument is passed
+    it('binds the predicate to the context object, if one is passed', function () {
+      expect(_.every([2, 4, 6], function (elem) {
+        return elem % this.multiplier === 0;
+      }, {multiplier: 2})
+      ).to.equal(true);
     });
   });
 
