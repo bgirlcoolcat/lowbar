@@ -265,7 +265,10 @@ _.defaults = function(object) {
 };
 
 // REDUCE
-_.reduce = function (list, iteratee, memo) {
+_.reduce = function (list, iteratee, memo, context) {
+  if (context) {
+    iteratee = iteratee.bind(context);
+  }
   if (Array.isArray(list)) {
     var noMemo = arguments.length < 3;
     for (var i = 0; i < list.length; i++) {
