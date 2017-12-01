@@ -481,7 +481,7 @@ describe('_', function () {
   });
 
   // EVERY
-  describe.only('#_.every', function () {
+  describe('#_.every', function () {
     it('is a function', function () {
       expect(_.every).to.be.a('function');
     });
@@ -591,33 +591,41 @@ describe('_', function () {
         return char === 'g';
       })).to.be.false;
       });
-      it('returns false if no arguments are passed', function () {
-        expect(_.some()).to.be.false;
-      });
-      it('returns false if given an invalid data type (number or boolean)', function () {
-        expect(_.some(2879, function (num) { 
-          return typeof num === 'number'; 
-        })).to.be.false;
-        expect(_.some(true, function (value) { 
-          return value === true; 
-        })).to.be.false;
-      });
-      it('stops traversing the list if a true element is found (array)', function () {
-        let count = 0;
-        _.some(['foo', 2, 'boo', 4], function (values) {
-          count++;
+    it('returns false if no arguments are passed', function () {
+      expect(_.some()).to.be.false;
+    });
+    it('returns false if given an invalid data type (number or boolean)', function () {
+      expect(_.some(2879, function (num) { 
+        return typeof num === 'number'; 
+      })).to.be.false;
+      expect(_.some(true, function (value) { 
+        return value === true; 
+      })).to.be.false;
+    });
+    it('stops traversing the list if a true element is found (array)', function () {
+      let count = 0;
+      _.some(['foo', 2, 'boo', 4], function (values) {
+        count++;
           return typeof values === 'number';
-        });
-        expect(count).to.equal(2);
       });
-      it('stops traversing the list if a true element is found (object)', function () {
-        let count = 0;
-        _.some({a: 1, b: 2, c: 'a', d: 4}, function (chars) {
-          count++;
+      expect(count).to.equal(2);
+    });
+    it('stops traversing the list if a true element is found (object)', function () {
+      let count = 0;
+      _.some({a: 1, b: 2, c: 'a', d: 4}, function (chars) {
+        count++;
           return typeof chars === 'string';
-        });
-        expect(count).to.equal(3);
       });
+      expect(count).to.equal(3);
+    });
+
+    // context argument is passed
+    it.only('binds the predicate to the context object, if one is passed', function () {
+      expect(_.some([2, 4, 5], function (elem) {
+        return elem % this.multiplier === 0;
+      }, {multiplier: 2})
+      ).to.equal(true);
+    });
   });
 
   // EXTEND
