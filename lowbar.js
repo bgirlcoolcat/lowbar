@@ -79,13 +79,15 @@ _.indexOf = function (array, value, isSorted) {
 };
 
 // FILTER
-_.filter = function (list, predicate) {
+_.filter = function (list, predicate, context) {
   let filteredList = [];
-
+  
+  if (context) {
+    predicate = predicate.bind(context);
+  }
   if (!(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
     return [];
   }
-
   if (typeof list === 'object') {
     for (var j = 0 in list) {
       if (predicate(list[j]) === true) {
