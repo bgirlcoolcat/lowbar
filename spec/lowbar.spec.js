@@ -13,9 +13,6 @@ describe('_', function () {
   
   // IDENTITY
   describe('#_.identity', function () {
-    it('is a function', function () {
-      expect(_.identity).to.be.a('function');
-    });
     it('returns the value of what was passed into it as an argument', function () {
       expect(_.identity([1,2])).to.eql([1,2]);
     });
@@ -41,7 +38,7 @@ describe('_', function () {
   });
 
   //  VALUES
-  describe.only('#_.values', function () {
+  describe('#_.values', function () {
     it('returns the values of the object passed to it', function () {
       expect(_.values({a:1, b:2, c:3})).to.eql([1,2,3]);
     });
@@ -55,9 +52,6 @@ describe('_', function () {
 
   // FIRST
   describe('#_.first', function () {
-    it('is a function', function () {
-      expect(_.first).to.be.a('function');
-    });
     it('returns the first element of an array or string', function () {
       expect(_.first([5, 4, 3, 2, 1])).to.equal(5);
       expect(_.first('Hello')).to.equal('H');
@@ -85,9 +79,6 @@ describe('_', function () {
 
   // LAST
   describe('#_.last', function () {
-    it('is a function', function () {
-      expect(_.last).to.be.a('function');
-    });
     it('returns the last element of an array or string', function () {
       expect(_.last([5, 4, 3, 2, 1])).to.equal(1);
       expect(_.last('Goodbye')).to.equal('e');
@@ -114,10 +105,7 @@ describe('_', function () {
   });
 
   // INDEX OF
-  describe('#_.indexOf', function () {
-    it('is a function', function () {
-      expect(_.indexOf).to.be.a('function');
-    });
+  describe.only('#_.indexOf', function () {
     it('returns the index at which value is found in the array/string or -1 if value is not present in array', function () {
       expect(_.indexOf([1, 2, 3], 2)).to.equal(1);
       expect(_.indexOf([1, 2, 3], 4)).to.equal(-1);
@@ -150,9 +138,6 @@ describe('_', function () {
 
   // FILTER
   describe('#_.filter', function () {
-    it('is a function', function () {
-      expect(_.filter).to.be.a('function');
-    });
     it('takes each value in the list returning only an array of values passing the truth test', function () {
       expect(_.filter([1,2,3,4,5,6], function(num) {
         return num % 2 === 0;
@@ -190,9 +175,6 @@ describe('_', function () {
 
   // REJECT
   describe('#_.reject', function () {
-    it('is a function', function () {
-      expect(_.reject).to.be.a('function');
-    });
     it('returns the list values that don\'t pass the truth (predicate) test', function () {
       expect(_.reject([1,2,3,4,5,6], function(num) {
         return num % 2 === 0;
@@ -230,9 +212,6 @@ describe('_', function () {
 
   // EACH
   describe('#_.each', function () {
-    it('is a function', function () {
-      expect(_.each).to.be.a('function');
-    });
     it('calls the iteratee the correct number of times when passed an array', function () {
       let callCount = 0;
       _.each([1, 2, 3], function() {
@@ -356,9 +335,6 @@ describe('_', function () {
 
   // UNIQ
   describe('#_.uniq', function () {
-    it('is a function', function () {
-      expect(_.uniq).to.be.a('function');
-    });
     it('returns a duplicate-free version of the array', function () {
       expect(_.uniq([1, 2, 1, 4, 1, 3])).to.eql([1, 2, 4, 3]);
       expect(_.uniq([1, 1, 1, 1])).to.eql([1]);
@@ -382,9 +358,6 @@ describe('_', function () {
 
   // MAP
   describe('#_.map', function () {
-    it('is a function', function () {
-      expect(_.map).to.be.a('function');
-    });
     it('produces a new array of values by mapping each value in list through a transformation function (iteratee)', function () {
       expect(_.map([1, 2, 3], function (num) { 
         return num * 3; 
@@ -431,9 +404,6 @@ describe('_', function () {
 
   // CONTAINS
   describe('#_.contains', function () {
-    it('is a function', function () {
-      expect(_.contains).to.be.a('function');
-    });
     it('returns true if the value is present in the list; false if not', function () {
       expect(_.contains([1, 2, 3], 3)).to.equal(true);
       expect(_.contains([1, 2, 3], 4)).to.equal(false);
@@ -461,9 +431,6 @@ describe('_', function () {
 
   // PLUCK
   describe('#_.pluck', function () {
-    it('is a function', function () {
-      expect(_.pluck).to.be.a('function');
-    });
     it('returns an extracted list of property values', function () {
       let animals = [{name: 'cat', type: 'feline'}, {name: 'dog', type: 'canine'}, {name: 'bear', type: 'ursine'}];
       expect(_.pluck(animals, 'name')).to.eql(['cat', 'dog', 'bear']);
@@ -495,9 +462,6 @@ describe('_', function () {
 
   // EVERY
   describe('#_.every', function () {
-    it('is a function', function () {
-      expect(_.every).to.be.a('function');
-    });
     it('returns true if all of the values in the list pass the predicate truth test', function () {
       expect(_.every([2, 4, 6], function (num) { 
         return num % 2 === 0; 
@@ -579,9 +543,6 @@ describe('_', function () {
 
   // SOME
   describe('#_.some', function () {
-    it('is a function', function () {
-      expect(_.some).to.be.a('function');
-    });
     it('returns true if any of the values in the list pass the predicate truth test', function () {
       expect(_.some([2, 4, 5], function (num) { 
         return num % 2 === 0; 
@@ -643,9 +604,6 @@ describe('_', function () {
 
   // EXTEND
   describe('#_.extend', function () {
-    it('is a function', function () {
-      expect(_.extend).to.be.a('function');
-    });
     it('shallowly copies all properties in source object to destination object, and returns the destination object', function () {
       expect(_.extend({name: 'moe'}, {age: 50})).to.eql({name: 'moe', age: 50});
       expect(_.extend({name: 'moe'}, {age: 50, hairColour: 'brown', gender: 'male'})).to.eql({name: 'moe', age: 50, hairColour: 'brown', gender: 'male'});
@@ -709,9 +667,6 @@ describe('_', function () {
 
   // DEFAULTS
   describe('#_.defaults', function () {
-    it('is a function', function () {
-      expect(_.defaults).to.be.a('function');
-    });
     it('returns the object with undefined properties filled in with the first value present in the default object', function () {
       expect(_.defaults({flavor: 'chocolate'}, {flavor: 'vanilla', sprinkles: 'lots'})
       ).to.eql({flavor: 'chocolate', sprinkles: 'lots'});
@@ -756,9 +711,6 @@ describe('_', function () {
 
   // REDUCE
   describe('#_.reduce', function () {
-    it('is a function', function () {
-      expect(_.reduce).to.be.a('function');
-    });
     it('reduces a list of values into a single value', function () {
       expect(_.reduce([1, 2, 3], function (acc, num) { 
         return acc + num; 
