@@ -40,6 +40,19 @@ describe('_', function () {
     });
   });
 
+  //  VALUES
+  describe.only('#_.values', function () {
+    it('returns the values of the object passed to it', function () {
+      expect(_.values({a:1, b:2, c:3})).to.eql([1,2,3]);
+    });
+    it('returns an empty array when passed no arguments', function () {
+      expect(_.values()).to.eql([]);
+    });
+    it('returns an empty array when passed an empty object', function () {
+      expect(_.values({})).to.eql([]);
+    });
+  });
+
   // FIRST
   describe('#_.first', function () {
     it('is a function', function () {
@@ -742,7 +755,7 @@ describe('_', function () {
   });
 
   // REDUCE
-  describe.only('#_.reduce', function () {
+  describe('#_.reduce', function () {
     it('is a function', function () {
       expect(_.reduce).to.be.a('function');
     });
