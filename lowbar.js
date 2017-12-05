@@ -22,6 +22,15 @@ _.identity = function (value) {
   return value;
 };
 
+//  VALUES
+_.values = function (object) {
+  if (object !== undefined) {
+    return Object.values(object);
+  } else {
+    return [];
+  }
+};
+
 // FIRST
 _.first = function (array, num) {
   if (!(Array.isArray(array)) && typeof array !== 'string') { 
