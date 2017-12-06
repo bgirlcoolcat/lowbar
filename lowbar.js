@@ -90,7 +90,12 @@ _.indexOf = function (array, value, isSorted) {
 // FILTER
 _.filter = function (list, predicate, context) {
   let filteredList = [];
-  
+  if (!list && !predicate && !context) { 
+    return []; 
+  } 
+  if (!predicate) {
+    return _.identity(list);
+  }
   if (context) {
     predicate = predicate.bind(context);
   }
@@ -115,9 +120,13 @@ _.filter = function (list, predicate, context) {
 
 // REJECT
 _.reject = function (list, predicate, context) {
-
   let rejectList = [];
-
+  if (!list && !predicate && !context) { 
+    return []; 
+  }
+  if (!predicate) {
+    return _.identity(list);
+  }
   if (context) {
     predicate = predicate.bind(context);
   }
@@ -146,7 +155,7 @@ _.each = function (list, iteratee, context) {
     iteratee = iteratee.bind(context);
   }
   if (!iteratee) {
-    return list;
+    return _.identity(list);
   }
   if (Array.isArray(list) || typeof list === 'string') {
       for (var i = 0; i < list.length; i++) {
@@ -180,7 +189,9 @@ _.uniq = function (arr) {
 // MAP
 _.map = function (list, iteratee, context) {
   let newArr = [];
-
+  if (!iteratee) {
+    return _.identity(list);
+  }
   if (context) {
     iteratee = iteratee.bind(context);
   }
@@ -220,6 +231,12 @@ _.pluck = function (list, propertyName) {
 
 // EVERY
 _.every = function(list, predicate, context) {
+  if (!list && !predicate && !context) { 
+    return true; 
+  } 
+  if (!predicate) {
+    return _.identity(list);
+  }
   if (context) {
     predicate = predicate.bind(context);
   }
@@ -237,6 +254,12 @@ _.every = function(list, predicate, context) {
 
 // SOME
 _.some = function(list, predicate, context) {
+  if (!list && !predicate && !context) { 
+    return false; 
+  } 
+  if (!predicate) {
+    return _.identity(list);
+  }
   if (context) {
     predicate = predicate.bind(context);
   }
@@ -275,6 +298,9 @@ _.defaults = function(object) {
 
 // REDUCE
 _.reduce = function (list, iteratee, memo, context) {
+  if (!iteratee) {
+    return _.identity(list);
+  }
   if (context) {
     iteratee = iteratee.bind(context);
   }
