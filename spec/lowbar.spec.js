@@ -105,7 +105,7 @@ describe('_', function () {
   });
 
   // INDEX OF
-  describe.only('#_.indexOf', function () {
+  describe('#_.indexOf', function () {
     it('returns the index at which value is found in the array/string or -1 if value is not present in array', function () {
       expect(_.indexOf([1, 2, 3], 2)).to.equal(1);
       expect(_.indexOf([1, 2, 3], 4)).to.equal(-1);
@@ -152,6 +152,9 @@ describe('_', function () {
         return num % 2 === 0;
       })).to.eql(['2','4']);
     });
+    it('should return the list if no predicate argument is passed', function () {
+      expect(_.filter([1,2,3,4,5,6])).to.eql([1,2,3,4,5,6]);
+    });
     it('returns an empty array if no arguments are passed', function () {
       expect(_.filter()).to.eql([]);
     });
@@ -188,6 +191,9 @@ describe('_', function () {
       expect(_.reject('1234', function(num) {
         return num % 2 === 0;
       })).to.eql(['1','3']);
+    });
+    it('should return the list if no predicate argument is passed', function () {
+      expect(_.reject([1,2,3,4,5,6])).to.eql([1,2,3,4,5,6]);
     });
     it('returns an empty array if no arguments are passed', function () {
       expect(_.reject()).to.eql([]);
@@ -258,7 +264,7 @@ describe('_', function () {
       expect(_.each(true, function () { return count += 1; })).to.equal(true);
       // expect(_.each(null, function () { return count += 1; })).to.equal(null);
     });
-    it('should return the list if an iteratee argument is not passed', function () {
+    it('should return the list if no iteratee argument is passed', function () {
       expect(_.each([1, 2, 3])).to.eql([1, 2, 3]);
       expect(_.each({a: 1, b: 2, c: 3})).to.eql({a: 1, b: 2, c: 3});
       expect(_.each('hello')).to.eql('hello');
@@ -384,6 +390,11 @@ describe('_', function () {
         return num + 1; 
       })).to.eql([]);
     });
+    it('should return the list if no iteratee argument is passed', function () {
+      expect(_.map([1, 2, 3])).to.eql([1, 2, 3]);
+      expect(_.map({a: 1, b: 2, c: 3})).to.eql({a: 1, b: 2, c: 3});
+      expect(_.map('12345')).to.eql('12345');
+    });
     it('returns an empty array when passed an invalid data type', function () {
       expect(_.map(2468, function (num) { 
         return num + 1; 
@@ -490,6 +501,9 @@ describe('_', function () {
         return typeof char === 'string';
       })).to.be.false;
     });
+    it('should return the list if no predicate argument is passed', function () {
+      expect(_.every([2, 4, 6])).to.eql([2, 4, 6]);
+    });
     it('returns true if no arguments are passed', function () {
       expect(_.every()).to.equal(true);
     });
@@ -564,7 +578,10 @@ describe('_', function () {
       expect(_.some('hhhhhh', function (char) { 
         return char === 'g';
       })).to.be.false;
-      });
+    });
+    it('should return the list if no predicate argument is passed', function () {
+      expect(_.some([2, 4, 5])).to.eql([2, 4, 5]);
+    });
     it('returns false if no arguments are passed', function () {
       expect(_.some()).to.be.false;
     });
@@ -766,6 +783,9 @@ describe('_', function () {
       expect(_.reduce({a: 1, b: 2, c: 3}, function (acc, num) { 
         return acc + num; 
       })).to.equal(6);
+    });
+    it('should return the list if no iteratee argument is passed', function () {
+      expect(_.reduce([1, 2, 3])).to.eql([1, 2, 3]);
     });
     it('returns undefined when an empty array is passed', function () {
       expect(_.reduce([], function (acc, num) { 
