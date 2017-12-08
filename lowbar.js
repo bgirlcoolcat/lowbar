@@ -153,15 +153,21 @@ _.each = function (list, iteratee, context) {
 };
 
 // UNIQ
-_.uniq = function (arr) {
+_.uniq = function (array, isSorted, iteratee) {
   let newArr = [];
-  if (!(Array.isArray(arr)) && typeof arr !== 'string') {
+  if (!(Array.isArray(array)) && typeof array !== 'string') {
     return newArr;
   }
-  _.each(arr, function (elem) {
-    if (newArr.indexOf(elem) === - 1) {
-      newArr.push(elem);
-    }
+  _.each(array, function (elem) {
+    if (iteratee) {
+      if (_.indexOf(newArr, iteratee(elem), isSorted) === - 1) {
+        newArr.push(iteratee(elem));
+      }
+    } else {
+        if (_.indexOf(newArr, elem, isSorted) === - 1) {
+          newArr.push(elem);
+        }
+      }
   });
   return newArr;
 };
