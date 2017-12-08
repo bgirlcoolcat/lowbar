@@ -448,8 +448,8 @@ describe('_', function () {
       expect(_.pluck(animals, 'type')).to.eql(['feline', 'canine', 'ursine']);
     });
     it('returns an extracted list of property values for an object where every value is an object itself', function () {
-      var group =  { 'john' : {family: 45, rest: 60 }, 'max' : {family: 3, rest: 60} };
-      _.pluck(group, 'family');
+      let people =  { 'John' : {siblings: 4, cousins: 6 }, 'Max' : {siblings: 3, rest: 3} };
+      expect(_.pluck(people, 'siblings')).to.eql([4, 3]);
     });
     it('returns undefined if list does not contain property name', function () {
       let animals = [{name: 'cat', type: 'feline'}, {name: 'dog', type: 'canine'}, {name: 'bear', type: 'ursine'}];
@@ -458,6 +458,8 @@ describe('_', function () {
     it('returns undefined if list is not an array of objects', function () {
       let names = ['cat', 'dog', 'bear'];
       expect(_.pluck(names, 'cat')).to.eql([undefined, undefined, undefined]);
+      let cat = {name: 'Benji', type: 'Bengal', age: 2};
+      expect(_.pluck(cat, 'age')).to.eql([undefined, undefined, undefined]);
       let details = ['name', 'age', {name: 'Bev'}];
       expect(_.pluck(details, 'name')).to.eql([undefined, undefined, 'Bev']);
       expect(_.pluck('cat', 'a')).to.eql([undefined, undefined, undefined]);
@@ -760,11 +762,6 @@ describe('_', function () {
         return acc; 
       }, {})).to.eql({'cake': 3, 'trifle': 2, 'jelly': 2, 'coffee cake': 1});
     });
-    it('calls the iteratee the correct number of times when passed an array (checked with a spy)', function () {
-      var spy = sinon.spy();
-      _.reduce([1, 2, 3], spy, 0);
-      expect(spy.callCount).to.equal(3);
-    });
     it('uses the first element of the array when no memo is passed', function () {
       expect(_.reduce([1, 2, 3], function (acc, num) { 
         return acc + num; 
@@ -773,11 +770,6 @@ describe('_', function () {
         acc = acc.concat(elem);
         return acc;
       })).to.eql([0, 1, 2, 3, 4, 5]);
-    });
-    it('uses the first element of the array when no memo is passed (checked with a spy)', function () {
-      const spy = sinon.spy();
-      _.reduce([1, 2, 3, 4, 5, 6], spy);
-      expect(spy.callCount).to.equal(5);
     });
     it('uses the first value of the object when no memo is passed', function () {
       expect(_.reduce({a: 1, b: 2, c: 3}, function (acc, num) { 
@@ -801,6 +793,18 @@ describe('_', function () {
       expect(_.reduce(123, function (acc, num) { 
         return acc + num; 
       }, 0)).to.equal(0);
+    });
+
+    // testing with spies
+    it('calls the iteratee the correct number of times when passed an array (checked with a spy)', function () {
+      var spy = sinon.spy();
+      _.reduce([1, 2, 3], spy, 0);
+      expect(spy.callCount).to.equal(3);
+    });
+    it('uses the first element of the array when no memo is passed (checked with a spy)', function () {
+      const spy = sinon.spy();
+      _.reduce([1, 2, 3, 4, 5, 6], spy);
+      expect(spy.callCount).to.equal(5);
     });
 
     // context argument is passed
