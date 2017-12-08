@@ -340,13 +340,13 @@ describe('_', function () {
   });
 
   // UNIQ
-  describe('#_.uniq', function () {
+  describe.only('#_.uniq', function () {
     it('returns a duplicate-free version of the array', function () {
       expect(_.uniq([1, 2, 1, 4, 1, 3])).to.eql([1, 2, 4, 3]);
       expect(_.uniq([1, 1, 1, 1])).to.eql([1]);
     });
     it('returns a duplicate-free version of the string', function () {
-      expect(_.uniq('1263643')).to.eql(['1', '2', '6', '3', '4']);
+      expect(_.uniq('ABbCccDdddEeeee')).to.eql(['A','B','b','C','c','D','d','E','e']);
     });
     it('should return an empty array when passed an empty array or string as an argument', function () {
       expect(_.uniq([])).to.eql([]);
@@ -359,6 +359,26 @@ describe('_', function () {
       expect(_.uniq({a:1, b:3, c:6, d:6, e:3, f:2})).to.eql([]);
       expect(_.uniq(1263643)).to.eql([]);
       expect(_.uniq(true, false, true)).to.eql([]);
+    });
+
+    // isSorted is passed as a second argument
+    it('returns a duplicate-free version of the array when passed a second isSorted argument', function () {
+      expect(_.uniq([1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4], true)).to.eql([1,2,3,4]);
+      expect(_.uniq([1, 2, 1, 4, 1, 3], false)).to.eql([1, 2, 4, 3]);
+    });
+    it('returns a duplicate-free version of the string when passed a second isSorted argument', function () {
+      expect(_.uniq('ello Stu', true)).to.eql(['e','l','o',' ','S','t','u' ]);
+      expect(_.uniq('hello world', false)).to.eql(['h', 'e', 'l', 'o', ' ', 'w', 'r', 'd']);
+    });
+
+    // iteratee is passed as a third argument
+    it('takes an iteratee function which transforms the unique items in the array', function () {
+      expect(_.uniq([1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 4], true, function (elem) {
+        return elem * 4;
+      })).to.eql([4, 8, 12, 16]);
+      expect(_.uniq([1, 2, 1, 4, 1, 3], false, function (elem) {
+        return elem * 2;
+      })).to.eql([2, 4, 8, 6]);
     });
   });
 
