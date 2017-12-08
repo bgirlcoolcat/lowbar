@@ -65,15 +65,13 @@ _.last = function (array, num) {
 
 // INDEX OF
 _.indexOf = function (array, value, isSorted) {
-  isSorted = isSorted || false;
-
   if (array === undefined || !(Array.isArray(array)) && typeof array !== 'string') {
     return - 1;
   }
-  if (typeof array === 'string' && isSorted === false) {
+  if (typeof array === 'string' && !isSorted) {
     return array.search(value);
   } 
-  if (Array.isArray(array) && isSorted === false) {
+  if (Array.isArray(array) && !isSorted) {
     return array.findIndex(function(elem) {
       return elem === value;
     });
@@ -82,7 +80,7 @@ _.indexOf = function (array, value, isSorted) {
     return binarySearch(array, value);
   }
   if ((Array.isArray(array) || typeof array === 'string') && typeof isSorted === 'number') {
-    let fromIndex = isSorted;
+    let fromIndex = (typeof isSorted === 'number') ? isSorted : 0;
     return array.indexOf(value, fromIndex);
   }
 };
@@ -102,19 +100,11 @@ _.filter = function (list, predicate, context) {
   if (!(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
     return [];
   }
-  if (typeof list === 'object') {
-    for (var j = 0 in list) {
-      if (predicate(list[j]) === true) {
-        filteredList.push(list[j]);
-      }
-    } 
-  } else {
-    for (var i = 0; i < list.length; i++) {
-      if (predicate(list[i]) === true) {
-        filteredList.push(list[i]);
-      }
+  _.each(list, function (elem) {
+    if (predicate(elem) === true) {
+      filteredList.push(elem);
     }
-  }
+  }); 
   return filteredList;
 };
 
@@ -133,19 +123,11 @@ _.reject = function (list, predicate, context) {
   if (!(Array.isArray(list)) && typeof list !== 'string' && typeof list !== 'object') {
     return rejectList;
   }
-  if (typeof list === 'object') {
-    for (var j = 0 in list) {
-      if (predicate(list[j]) === false) {
-        rejectList.push(list[j]);
-      }
-    } 
-  } else {
-      for (var i = 0; i < list.length; i++) {
-        if (predicate(list[i]) === false) {
-          rejectList.push(list[i]);
-        }
-      }
+  _.each(list, function (elem) {
+    if (predicate(elem) === false) {
+      rejectList.push(elem);
     }
+  }); 
   return rejectList;
 };
 
@@ -162,27 +144,25 @@ _.each = function (list, iteratee, context) {
         iteratee(list[i], i, list);
       }  
   } else if (typeof list === 'object') {
-    for (Object.key in list) {
-      iteratee(list[Object.key], Object.key, list);
+      for (Object.key in list) {
+        iteratee(list[Object.key], Object.key, list);
+      }
+    } else {
+      return list;
     }
-  } else {
-    return list;
-  }
 };
 
 // UNIQ
 _.uniq = function (arr) {
   let newArr = [];
-
   if (!(Array.isArray(arr)) && typeof arr !== 'string') {
     return newArr;
   }
-
-  for (var i = 0; i < arr.length; i++) {
-    if (newArr.indexOf(arr[i]) === - 1) {
-      newArr.push(arr[i]);
+  _.each(arr, function (elem) {
+    if (newArr.indexOf(elem) === - 1) {
+      newArr.push(elem);
     }
-  }
+  });
   return newArr;
 };
 
@@ -195,38 +175,27 @@ _.map = function (list, iteratee, context) {
   if (context) {
     iteratee = iteratee.bind(context);
   }
-  if (typeof list === 'object') {
-    for (Object.key in list) {
-      newArr.push(iteratee(list[Object.key]));
-    }
-    return newArr;
-  } else {
-      for (var i = 0; i < list.length; i++) {
-        newArr.push(iteratee(list[i]));
-      }  
-        return newArr;
-    }
+  _.each(list, function (elem) {
+    newArr.push(iteratee(elem));
+  });
+  return newArr;
 };
 
 // CONTAINS
 _.contains = function (list, value, fromIndex) {
-  if (Array.isArray(list) || typeof list === 'string') {
-      return list.indexOf(value, fromIndex) > -1;
-  }
-  if (typeof list === 'object') {
-    return Object.values(list).indexOf(value, fromIndex) > -1;
-  } 
-  return false;
+    if (typeof list === 'object') {
+      return _.indexOf(Object.values(list), value, fromIndex) !== -1;
+    } else {
+        return _.indexOf(list, value, fromIndex) !== -1;
+      }
 };
 
 // PLUCK
 _.pluck = function (list, propertyName) {
   if (!list) return [];
-  let res = [];
-    for (var i = 0; i < list.length; i++) {
-      res[i] = list[i][propertyName];
-    }
-    return res;
+  return _.map(list, function(item) {
+    return item[propertyName];
+  });
 };
 
 // EVERY
@@ -240,16 +209,12 @@ _.every = function(list, predicate, context) {
   if (context) {
     predicate = predicate.bind(context);
   }
-  if (Array.isArray(list) || typeof list === 'string') {
-    for (var i = 0; i < list.length; i++) {
-      if (!predicate(list[i])) return false;
+  return _.reduce (list, function (memo, value) {
+    if (!memo) {
+      return false;
     }
-  } else if (typeof list === 'object') {
-    for (let key in list) {
-      if (!predicate(list[key])) return false;
-    }
-  }
-  return true;
+    return (predicate(value)); 
+  }, true);
 };
 
 // SOME
@@ -263,16 +228,11 @@ _.some = function(list, predicate, context) {
   if (context) {
     predicate = predicate.bind(context);
   }
-  if (Array.isArray(list) || typeof list === 'string') {
-    for (var i = 0; i < list.length; i++) {
-      if (predicate(list[i])) return true;
-    }
-  } else if (typeof list === 'object') {
-    for (let key in list) {
-      if (predicate(list[key])) return true;
-    }
-  }
-  return false;
+  return _.reduce(list, function (memo, value) {
+    if (memo) {
+      return true;
+    } return (predicate(value)); 
+  }, false);
 };
 
 // EXTEND
@@ -286,13 +246,14 @@ _.extend = function(destination, ...sources) {
 
 // DEFAULTS
 _.defaults = function(object) {
-  for (var i = 1; i < arguments.length; i++) {
-    for (var key in arguments[i]) {
+  let args = Array.prototype.slice.call(arguments);
+  _.each(args, function (arg) {
+    for (var key in arg) {
       if (object[key] === undefined) {
-        object[key] = arguments[i][key];
+        object[key] = arg[key];
       }
-    }  
-  }
+    }
+  });
   return object;
 };
 
@@ -304,20 +265,16 @@ _.reduce = function (list, iteratee, memo, context) {
   if (context) {
     iteratee = iteratee.bind(context);
   }
-  if (Array.isArray(list)) {
-    var noMemo = arguments.length < 3;
-    for (var i = 0; i < list.length; i++) {
-      noMemo ? (noMemo = false, memo = list[i]) : memo = iteratee(memo, list[i], i, list);
+  var noMemo = arguments.length < 3;
+  _.each (list, function (value, i, list) {
+    if (noMemo) {
+      noMemo = false;
+      memo = value;
+    } else {
+      memo = iteratee (memo, value, i, list);
     }
-  }
-  else if (typeof list === 'object') {
-    noMemo = arguments.length < 3;
-    for (let key in list) {
-      noMemo ? (noMemo = false, memo = list[key]) : memo = iteratee(memo, list[key], i, list);
-    }
-  }
+  }); 
   return memo;
 };
-
 
 module.exports = _;
