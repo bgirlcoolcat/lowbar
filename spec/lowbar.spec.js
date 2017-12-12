@@ -837,7 +837,7 @@ describe('_', function () {
   });
 
   // ONCE
-  describe.only('#_.once', function () {
+  describe('#_.once', function () {
     it('is a function that can only be called once', function () {
       let spy = sinon.spy();
       let callOnce = _.once(spy);
@@ -845,6 +845,19 @@ describe('_', function () {
       callOnce ();
       callOnce ();
       expect(spy.callCount).to.equal(1);
+    });
+  });
+
+  // NEGATE
+  describe.only('#_.negate', function () {
+    it('returns a function whose sense is the opposite of the original predicate', function () {
+      let isEvens = _.negate(Boolean);
+      expect(_.every([2, 4, 6], isEvens)
+      ).to.equal(false);
+
+      let isFalsy = _.negate(Boolean);
+      expect(_.filter([-2, -1, 0, 1, 2], isFalsy)
+      ).to.eql([0]);
     });
   });
 
