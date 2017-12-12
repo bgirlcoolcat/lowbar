@@ -340,7 +340,7 @@ describe('_', function () {
   });
 
   // UNIQ
-  describe.only('#_.uniq', function () {
+  describe('#_.uniq', function () {
     it('returns a duplicate-free version of the array', function () {
       expect(_.uniq([1, 2, 1, 4, 1, 3])).to.eql([1, 2, 4, 3]);
       expect(_.uniq([1, 1, 1, 1])).to.eql([1]);
@@ -833,6 +833,18 @@ describe('_', function () {
         return acc + elem + this.multiplier; 
       }, 0, {multiplier: 2})
       ).to.equal(12);
+    });
+  });
+
+  // ONCE
+  describe.only('#_.once', function () {
+    it('is a function that can only be called once', function () {
+      let spy = sinon.spy();
+      let callOnce = _.once(spy);
+      callOnce ();
+      callOnce ();
+      callOnce ();
+      expect(spy.callCount).to.equal(1);
     });
   });
 
