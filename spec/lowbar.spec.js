@@ -849,7 +849,7 @@ describe('_', function () {
   });
 
   // NEGATE
-  describe.only('#_.negate', function () {
+  describe('#_.negate', function () {
     it('returns a function whose sense is the opposite of the original predicate', function () {
       let isEvens = _.negate(Boolean);
       expect(_.every([2, 4, 6], isEvens)
@@ -858,6 +858,30 @@ describe('_', function () {
       let isFalsy = _.negate(Boolean);
       expect(_.filter([-2, -1, 0, 1, 2], isFalsy)
       ).to.eql([0]);
+    });
+  });
+
+  // SHUFFLE
+  describe.only('#_.shuffle', function () {
+    it('returns a shuffled copy of the list, using a modern version of the Fisher-Yates shuffle', function () {
+      expect(_.shuffle(
+        [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]) && 
+        _.shuffle([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
+      ).to.not.eql(
+        [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30] && 
+        [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+      );
+    });
+    it('takes an object as input and randomises the outputted array of values', function () {
+      expect(_.shuffle({a: 1, b:2, c:3, d:4, e:5, f:6, g:7, h:8, i:9, j:10})
+      ).to.not.eql([1,2,3,4,5,6,7,8,9,10]);
+    });
+    it('takes a string as input and randomises the outputted array of each letter of the string', function () {
+      expect(_.shuffle('superflyguy')).to.not.eql(['s','u','p','e','r','f','l','y','g','u','y']);
+    });
+    it('returns the array if an array of length 0 or 1 is entered', function () {
+      expect(_.shuffle([])).to.eql([]);
+      expect(_.shuffle([1])).to.eql([1]);
     });
   });
 
