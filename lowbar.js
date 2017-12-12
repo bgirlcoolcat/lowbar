@@ -283,4 +283,17 @@ _.reduce = function (list, iteratee, memo, context) {
   return memo;
 };
 
+// ONCE
+_.once = function (func) {
+  let runAlready = false;
+  
+  return function () {
+      if (!runAlready) {
+        runAlready = true;
+        return func.apply(this, arguments);
+      }
+  };
+};
+
+  
 module.exports = _;
