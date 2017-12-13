@@ -862,7 +862,7 @@ describe('_', function () {
   });
 
   // SHUFFLE
-  describe.only('#_.shuffle', function () {
+  describe('#_.shuffle', function () {
     it('returns a shuffled copy of the list, using a modern version of the Fisher-Yates shuffle', function () {
       expect(_.shuffle(
         [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]) && 
@@ -882,6 +882,40 @@ describe('_', function () {
     it('returns the array if an array of length 0 or 1 is entered', function () {
       expect(_.shuffle([])).to.eql([]);
       expect(_.shuffle([1])).to.eql([1]);
+    });
+  });
+
+  // INVOKE
+  describe.only('#_.invoke', function () {
+    it('should call sort method on each element in an array and return results in an array', function () {
+      expect(_.invoke([[5, 1, 7], [3, 2, 1]], 'sort')
+      ).to.eql([[1, 5, 7], [1, 2, 3]]);
+    });
+    it('should call sort method on each value in an object and return results in an array', function () {
+      expect(_.invoke({a: [5, 1, 7], b: [3, 2, 66]}, 'sort')
+      ).to.eql([[1, 5, 7], [2, 3, 66]]);
+    });
+    it('should call toUpperCase method on each value in a string and return results in an array', function () {
+      expect(_.invoke('hello', 'toUpperCase')
+      ).to.eql(['H', 'E', 'L', 'L', 'O']);
+    });
+    it('should pass extra arguments onto method invocation', function () {
+      let things = [['apple', 'banana', 'mango']];
+      expect(_.invoke(things, 'join', '#')
+      ).to.eql(['apple#banana#mango']);
+
+      expect(_.invoke(['lol'], 'concat', 'bbq')
+      ).to.eql(['lolbbq']);
+    });
+    it('should return undefined if an inappropriate method is called on the list', function () {
+      expect(_.invoke('hello', 'sort')
+      ).to.eql([undefined, undefined, undefined, undefined, undefined]);
+    });
+    it('returns an empty array if given an invalid data type', function () {
+      expect(_.invoke(12345, 'sort')
+      ).to.eql([]);
+      expect(_.invoke(false, 'sort')
+    ).to.eql([]);
     });
   });
 
