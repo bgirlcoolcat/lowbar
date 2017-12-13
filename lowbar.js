@@ -314,4 +314,15 @@ _.shuffle = function (list) {
   return list;
 };
 
+// INVOKE
+_.invoke = function (list, methodName) {
+  let args = [].slice.call(arguments, 2);
+  let result = [];
+  _.each(list, function (elem) {
+    typeof elem[methodName] === 'function' ? result.push(elem[methodName].apply(elem, args)) : result.push(undefined);
+  });
+  return result;
+};
+
+
 module.exports = _;
