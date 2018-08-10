@@ -25,23 +25,12 @@ Descriptions and examples for how each function works can be found in the [Under
 
 #### Lowbar II: Advanced methods
 
-These methods implemented are a little trickier. Many of them are utility methods for functions, such as throttle which stops a function being called more often than requested. 
+These methods implemented are a little trickier. Many of them are utility methods for functions. 
 
 - once
 - negate
 - shuffle
 - invoke
-- sortBy
-- zip
-- sortedIndex
-- flatten
-- intersection
-- difference
-- memoize
-- delay
-- where
-- throttle
-- partial
 
 The project was completed using test-driven development (TDD) and heavily references the APIs of the following:
 - [The Mocha Test Framework](https://mochajs.org/)
