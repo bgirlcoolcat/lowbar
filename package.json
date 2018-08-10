@@ -21,11 +21,11 @@
   "homepage": "https://github.com/bgirlcoolcat/lowbar#readme",
   "devDependencies": {
     "chai": "^4.1.2",
-    "eslint": "^4.11.0",
+    "eslint": "^4.19.1",
     "husky": "^0.14.3",
-    "sinon": "^4.1.2"
+    "sinon": "^4.5.0"
   },
   "dependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^4.1.0"
   }
 }
